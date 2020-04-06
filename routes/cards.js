@@ -11,54 +11,13 @@ router.get("/all", (req, res, next) => {
     .catch(next);
 });
 
-// Search by text only
-router.get("/", function(req, res, next) {
-  const sortQuery = {};
-  const reqQueryClone = Object.assign({}, req.query);
-
-  if (
-    typeof reqQueryClone.sortField !== "undefined" &&
-    typeof reqQueryClone.sortOrder !== "undefined"
-  ) {
-    if (["level", "atk", "def"].includes(reqQueryClone.sortField)) {
-      sortQuery.cardType = "asc";
-    }
-
-    sortQuery[reqQueryClone.sortField] = reqQueryClone.sortOrder;
-
-    delete reqQueryClone.sortField;
-    delete reqQueryClone.sortOrder;
-  }
-
-  if (
-    Object.entries(reqQueryClone).length === 1 &&
-    typeof reqQueryClone.text !== "undefined"
-  ) {
-    const $regex = { $regex: new RegExp(reqQueryClone.text, "i") };
-
-    if (typeof sortQuery.name === "undefined") {
-      sortQuery.name = "asc";
-    }
-
-    Card.find({ $or: [{ name: $regex }, { text: $regex }] })
-      .sort(sortQuery)
-      .then(cards => {
-        cards = cards.map(card => card.toJSONapi());
-        res.json(cards);
-      })
-      .catch(next);
-  } else {
-    next();
-  }
-});
-
 // Search by every filter
 router.get("/", function(req, res, next) {
   const dbQuery = {};
   const sortQuery = {};
 
-  if (typeof req.query.cardType !== "undefined") {
-    dbQuery.cardType = req.query.cardType;
+  if (typeof req.query.cardTypes !== "undefined") {
+    dbQuery.cardType = { $in: req.query.cardTypes };
   } else {
     const err = new Error("cardType is missing");
     err.status = 400;
