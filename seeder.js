@@ -6,6 +6,7 @@ const Card = require("./models/Card");
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/lightning-ygo-api";
 const UPLOAD_PATH = "/lightning_ygo_api/card_images";
+const abilities = ["flip", "gemini", "spirit", "toon", "tuner", "union"];
 const nonEffectFusionMonsters = [
   "Amphibious Bugroth",
   "Aqua Dragon",
@@ -318,6 +319,10 @@ const uploadImage = async (imageUrl, folder) => {
           .concat(nonEffectSynchroMonsters)
           .includes(apiCard.name)
       ) {
+        types.push("effect");
+      }
+
+      if (abilities.includes(apiCardType) && !types.includes("effect")) {
         types.push("effect");
       }
     }
