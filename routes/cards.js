@@ -1,5 +1,6 @@
 const Card = require("../models/Card");
 const router = require("express").Router();
+const utilities = require("../common/utilities");
 
 // Return all cards
 router.get("/all", (req, res, next) => {
@@ -50,7 +51,9 @@ router.get("/", function(req, res, next) {
   }
 
   if (typeof req.query.text !== "undefined") {
-    const $regex = { $regex: new RegExp(req.query.text, "i") };
+    const $regex = {
+      $regex: new RegExp(utilities.escapeRegExp(req.query.text), "i")
+    };
     dbQuery.$or = [{ name: $regex }, { text: $regex }];
   }
 
