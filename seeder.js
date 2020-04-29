@@ -175,6 +175,20 @@ const uploadImage = async (imageUrl, folder) => {
       )
     };
 
+    // Because ATK might be 0 or ?
+    let atk = null;
+    // eslint-disable-next-line
+    if (apiCard.hasOwnProperty("atk")) {
+      atk = apiCard.atk;
+    }
+
+    // Because DEF might be 0 or ?
+    let def = null;
+    // eslint-disable-next-line
+    if (apiCard.hasOwnProperty("def")) {
+      def = apiCard.def;
+    }
+
     const card = new Card({
       cardType,
       name: apiCard.name,
@@ -185,8 +199,8 @@ const uploadImage = async (imageUrl, folder) => {
       monsterType,
       types,
       text: apiCard.desc,
-      atk: apiCard.atk ? apiCard.atk : null,
-      def: apiCard.def ? apiCard.def : null,
+      atk,
+      def,
       image
     });
 
