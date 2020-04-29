@@ -9,8 +9,8 @@ const CardSchema = new mongoose.Schema(
     monsterType: String,
     types: { type: [String], required: true },
     text: { type: String, required: true },
-    atk: Number,
-    def: Number,
+    atk: mongoose.Schema.Types.Mixed,
+    def: mongoose.Schema.Types.Mixed,
     image: { type: Map, of: String }
   },
   { timestamps: true }
