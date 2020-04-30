@@ -38,6 +38,7 @@ router.get("/", function(req, res, next) {
   }
 
   if (typeof req.query.types !== "undefined") {
+    const possibleEffectMonsterCardTypes = ["ritual", "fusion", "synchro"];
     dbQuery.types = { $in: [], $nin: [] };
 
     // Effect Monsters
@@ -46,36 +47,22 @@ router.get("/", function(req, res, next) {
       req.query.types.splice(effectIndex, 1);
 
       dbQuery.types.$in.push("effect");
-      dbQuery.types.$nin.push("ritual", "fusion", "synchro");
+      dbQuery.types.$nin.push(...possibleEffectMonsterCardTypes);
     }
 
-    // Ritual Monsters
-    const ritualIndex = req.query.types.indexOf("ritual");
-    if (ritualIndex > -1) {
-      req.query.types.splice(ritualIndex, 1);
-
-      dbQuery.types.$in.push("ritual");
-      dbQuery.types.$nin = dbQuery.types.$nin.filter(type => type !== "ritual");
-    }
-
-    // Fusion Monsters
-    const fusionIndex = req.query.types.indexOf("fusion");
-    if (fusionIndex > -1) {
-      req.query.types.splice(fusionIndex, 1);
-
-      dbQuery.types.$in.push("fusion");
-      dbQuery.types.$nin = dbQuery.types.$nin.filter(type => type !== "fusion");
-    }
-
-    // Synchro Monsters
-    const synchroIndex = req.query.types.indexOf("synchro");
-    if (synchroIndex > -1) {
-      req.query.types.splice(synchroIndex, 1);
-
-      dbQuery.types.$in.push("synchro");
-      dbQuery.types.$nin = dbQuery.types.$nin.filter(
-        type => type !== "synchro"
+    // Ritual, Fusion, Synchro Monsters
+    for (const possibleEffectMonsterCardType of possibleEffectMonsterCardTypes) {
+      const possibleEffectMonsterCardTypeIndex = req.query.types.indexOf(
+        possibleEffectMonsterCardType
       );
+      if (possibleEffectMonsterCardTypeIndex > -1) {
+        req.query.types.splice(possibleEffectMonsterCardTypeIndex, 1);
+
+        dbQuery.types.$in.push(possibleEffectMonsterCardType);
+        dbQuery.types.$nin = dbQuery.types.$nin.filter(
+          type => type !== possibleEffectMonsterCardType
+        );
+      }
     }
 
     // Non-Effect Monsters
