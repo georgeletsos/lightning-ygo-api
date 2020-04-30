@@ -9,10 +9,12 @@ const MONGODB_URI =
 const isProduction = process.env.NODE_ENV === "production";
 
 // Connect to MongoDB
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose
+  .connect(MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
+  .then(() => console.log("Successfully connected to MongoDB"));
 mongoose.set("debug", !isProduction);
 
 // Global app object
