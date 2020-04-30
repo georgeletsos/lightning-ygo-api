@@ -44,10 +44,12 @@ router.get("/", function(req, res, next) {
     if (nonEffectIndex > -1) {
       req.query.types.splice(nonEffectIndex, 1);
 
-      dbQuery.types.$nin = "effect";
+      dbQuery.types.$nin = ["effect"];
     }
 
-    dbQuery.types.$in = req.query.types;
+    if (req.query.types.length > 0) {
+      dbQuery.types.$in = req.query.types;
+    }
   }
 
   if (typeof req.query.text !== "undefined") {
