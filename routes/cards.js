@@ -17,6 +17,7 @@ router.get("/", function(req, res, next) {
   const dbQuery = {};
   const sortQuery = {};
 
+  // Card Types
   if (typeof req.query.cardTypes !== "undefined") {
     dbQuery.cardType = { $in: req.query.cardTypes };
   } else {
@@ -25,29 +26,33 @@ router.get("/", function(req, res, next) {
     next(err);
   }
 
+  // Attributes
   if (typeof req.query.attributes !== "undefined") {
     dbQuery.attribute = { $in: req.query.attributes };
   }
 
+  // Levels
   if (typeof req.query.levels !== "undefined") {
     dbQuery.level = { $in: req.query.levels };
   }
 
+  // Monster Types
   if (typeof req.query.monsterTypes !== "undefined") {
     dbQuery.monsterType = { $in: req.query.monsterTypes };
   }
 
+  // Types
   if (typeof req.query.types !== "undefined") {
+    const types = { $in: [], $nin: [] };
     const possibleEffectMonsterCardTypes = ["ritual", "fusion", "synchro"];
-    dbQuery.types = { $in: [], $nin: [] };
 
     // Effect Monsters
     const effectIndex = req.query.types.indexOf("effect");
     if (effectIndex > -1) {
       req.query.types.splice(effectIndex, 1);
 
-      dbQuery.types.$in.push("effect");
-      dbQuery.types.$nin.push(...possibleEffectMonsterCardTypes);
+      types.$in.push("effect");
+      types.$nin.push(...possibleEffectMonsterCardTypes);
     }
 
     // Ritual, Fusion, Synchro Monsters
@@ -58,29 +63,54 @@ router.get("/", function(req, res, next) {
       if (possibleEffectMonsterCardTypeIndex > -1) {
         req.query.types.splice(possibleEffectMonsterCardTypeIndex, 1);
 
-        dbQuery.types.$in.push(possibleEffectMonsterCardType);
-        dbQuery.types.$nin = dbQuery.types.$nin.filter(
+        types.$in.push(possibleEffectMonsterCardType);
+        types.$nin = types.$nin.filter(
           type => type !== possibleEffectMonsterCardType
         );
       }
     }
 
-    // Non-Effect Monsters
-    const nonEffectIndex = req.query.types.indexOf("non-effect");
-    if (nonEffectIndex > -1) {
-      req.query.types.splice(nonEffectIndex, 1);
-
-      dbQuery.types.$nin.push("effect");
-    }
-
     // Include the rest of the remaining types
-    dbQuery.types.$in.push(...req.query.types);
+    types.$in.push(...req.query.types);
 
-    if (dbQuery.types.$in.length === 0) {
-      delete dbQuery.types.$in;
+    if (types.$in.length === 0) {
+      delete types.$in;
     }
+
+    if (types.$nin.length === 0) {
+      delete types.$nin;
+    }
+
+    // Add types to $and query
+    dbQuery.$and = [{ types }];
   }
 
+  // Card Effects
+  if (typeof req.query.cardEffects !== "undefined") {
+    const cardEffects = {};
+
+    // Non-Effect Monsters
+    const nonEffectIndex = req.query.cardEffects.indexOf("non-effect");
+    if (nonEffectIndex > -1) {
+      req.query.cardEffects.splice(nonEffectIndex, 1);
+
+      cardEffects.$nin = ["effect"];
+    }
+
+    // Monster Abilities & Tuner Monsters (The rest of the remaining Card Effects)
+    if (req.query.cardEffects.length > 0) {
+      cardEffects.$in = [...req.query.cardEffects];
+    }
+
+    // eslint-disable-next-line
+    if (!dbQuery.hasOwnProperty("$and")) {
+      dbQuery.$and = [];
+    }
+
+    dbQuery.$and.push({ types: cardEffects });
+  }
+
+  // Text
   if (typeof req.query.text !== "undefined") {
     const $regex = {
       $regex: new RegExp(utilities.escapeRegExp(req.query.text), "i")
@@ -88,6 +118,7 @@ router.get("/", function(req, res, next) {
     dbQuery.$or = [{ name: $regex }, { text: $regex }];
   }
 
+  // SortField & SortOrder
   if (
     typeof req.query.sortField !== "undefined" &&
     typeof req.query.sortOrder !== "undefined"
@@ -95,6 +126,7 @@ router.get("/", function(req, res, next) {
     sortQuery[req.query.sortField] = req.query.sortOrder;
   }
 
+  // DEFAULT SortField & SortOrder
   if (typeof sortQuery.name === "undefined") {
     sortQuery.name = "asc";
   }
