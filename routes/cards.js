@@ -38,17 +38,59 @@ router.get("/", function(req, res, next) {
   }
 
   if (typeof req.query.types !== "undefined") {
-    dbQuery.types = {};
+    dbQuery.types = { $in: [], $nin: [] };
 
+    // Effect Monsters
+    const effectIndex = req.query.types.indexOf("effect");
+    if (effectIndex > -1) {
+      req.query.types.splice(effectIndex, 1);
+
+      dbQuery.types.$in.push("effect");
+      dbQuery.types.$nin.push("ritual", "fusion", "synchro");
+    }
+
+    // Ritual Monsters
+    const ritualIndex = req.query.types.indexOf("ritual");
+    if (ritualIndex > -1) {
+      req.query.types.splice(ritualIndex, 1);
+
+      dbQuery.types.$in.push("ritual");
+      dbQuery.types.$nin = dbQuery.types.$nin.filter(type => type !== "ritual");
+    }
+
+    // Fusion Monsters
+    const fusionIndex = req.query.types.indexOf("fusion");
+    if (fusionIndex > -1) {
+      req.query.types.splice(fusionIndex, 1);
+
+      dbQuery.types.$in.push("fusion");
+      dbQuery.types.$nin = dbQuery.types.$nin.filter(type => type !== "fusion");
+    }
+
+    // Synchro Monsters
+    const synchroIndex = req.query.types.indexOf("synchro");
+    if (synchroIndex > -1) {
+      req.query.types.splice(synchroIndex, 1);
+
+      dbQuery.types.$in.push("synchro");
+      dbQuery.types.$nin = dbQuery.types.$nin.filter(
+        type => type !== "synchro"
+      );
+    }
+
+    // Non-Effect Monsters
     const nonEffectIndex = req.query.types.indexOf("non-effect");
     if (nonEffectIndex > -1) {
       req.query.types.splice(nonEffectIndex, 1);
 
-      dbQuery.types.$nin = ["effect"];
+      dbQuery.types.$nin.push("effect");
     }
 
-    if (req.query.types.length > 0) {
-      dbQuery.types.$in = req.query.types;
+    // Include the rest of the remaining types
+    dbQuery.types.$in.push(...req.query.types);
+
+    if (dbQuery.types.$in.length === 0) {
+      delete dbQuery.types.$in;
     }
   }
 
