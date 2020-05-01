@@ -6,7 +6,6 @@ const Card = require("./models/Card");
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/lightning-ygo-api";
 const UPLOAD_PATH = "/lightning_ygo_api/card_images";
-const abilities = ["flip", "gemini", "spirit", "toon", "tuner", "union"];
 const nonEffectFusionMonsters = [
   "Amphibious Bugroth",
   "Aqua Dragon",
@@ -287,10 +286,12 @@ const uploadImage = async (imageUrl, folder) => {
       .map(type => type.trim().toLowerCase())
       .filter(type => type !== "card");
 
-    let cardType,
-      monsterType = null;
+    // Types
+    let cardType = null;
+    let monsterType = null;
     const types = [];
     for (const apiCardType of apiCardTypes) {
+      // Token
       if (apiCardType === "token") {
         cardType = "monster";
         monsterType = apiCard.race.trim().toLowerCase();
@@ -298,9 +299,11 @@ const uploadImage = async (imageUrl, folder) => {
         break;
       }
 
+      // Describe Api Card Race as type or monster type
       if (["monster", "spell", "trap"].includes(apiCardType)) {
-        const apiCardRace = apiCard.race.trim().toLowerCase();
         cardType = apiCardType;
+
+        const apiCardRace = apiCard.race.trim().toLowerCase();
         if (["spell", "trap"].includes(apiCardType)) {
           types.push(apiCardRace);
           break;
@@ -312,21 +315,39 @@ const uploadImage = async (imageUrl, folder) => {
       }
 
       types.push(apiCardType);
-
-      if (
-        ["fusion", "synchro"].includes(apiCardType) &&
-        !nonEffectFusionMonsters
-          .concat(nonEffectSynchroMonsters)
-          .includes(apiCard.name)
-      ) {
-        types.push("effect");
-      }
-
-      if (abilities.includes(apiCardType) && !types.includes("effect")) {
-        types.push("effect");
-      }
     }
 
+    // In case of a possible Effect Monster Card Types, add the Effect type at the end
+    const possibleEffectMonsterCardTypes = ["fusion", "synchro"];
+    if (
+      possibleEffectMonsterCardTypes.some(possibleEffectMonsterCardType =>
+        types.includes(possibleEffectMonsterCardType)
+      ) &&
+      !nonEffectFusionMonsters
+        .concat(nonEffectSynchroMonsters)
+        .includes(apiCard.name) &&
+      !types.includes("effect")
+    ) {
+      types.push("effect");
+    }
+
+    // In case of Effect Monsters with an Ability, add the Effect type at the end
+    const abilities = ["flip", "gemini", "spirit", "toon", "union"];
+    if (
+      abilities.some(ability => types.includes(ability)) &&
+      !types.includes("effect")
+    ) {
+      types.push("effect");
+    }
+
+    // In case of Normal Tuner Monsters, move the Normal type to the end
+    const normalIndex = types.indexOf("normal");
+    if (normalIndex > -1 && normalIndex < types.length - 1) {
+      types.splice(normalIndex, 1);
+      types.push("normal");
+    }
+
+    // Images
     const apiCardImage = apiCard.card_images[0];
     const image = {
       id: apiCardImage.id,
@@ -338,28 +359,29 @@ const uploadImage = async (imageUrl, folder) => {
       )
     };
 
-    // Because ATK might be 0 or ?
     let atk = null;
     // eslint-disable-next-line
     if (apiCard.hasOwnProperty("atk")) {
       atk = apiCard.atk;
 
+      // In case of 0 or ? ATK
       if (questionMarkAtkMonsters.includes(apiCard.name)) {
         apiCard.atk = "?";
       }
     }
 
-    // Because DEF might be 0 or ?
     let def = null;
     // eslint-disable-next-line
     if (apiCard.hasOwnProperty("def")) {
       def = apiCard.def;
 
+      // In case of 0 or ? DEF
       if (questionMarkDefMonsters.includes(apiCard.name)) {
         apiCard.def = "?";
       }
     }
 
+    // Final Card
     const card = new Card({
       cardType,
       name: apiCard.name,
