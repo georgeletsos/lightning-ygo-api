@@ -5,7 +5,7 @@ const CardSchema = new mongoose.Schema(
     cardType: { type: String, required: true },
     name: { type: String, required: true },
     attribute: String,
-    level: Number,
+    level: mongoose.Schema.Types.Mixed,
     monsterType: String,
     types: { type: [String], required: true },
     text: { type: String, required: true },
