@@ -137,6 +137,35 @@ router.get("/", function(req, res, next) {
     sortQuery.name = "asc";
   }
 
+  // In case of null values while sorting, 2 queries are needed to ensure that null values are always at the end
+  if (
+    ["level", "atk", "def"].includes(req.query.sortField) &&
+    req.query.sortOrder === "asc" &&
+    req.query.cardTypes.length > 1 &&
+    req.query.cardTypes.includes("monster")
+  ) {
+    const noNullCardsQuery = Card.find(dbQuery)
+      .where(req.query.sortField)
+      .ne(null)
+      .sort(sortQuery);
+
+    const nullCardsQuery = Card.find(dbQuery)
+      .where(req.query.sortField)
+      .eq(null)
+      .sort(sortQuery);
+
+    Promise.all([noNullCardsQuery, nullCardsQuery])
+      .then(([noNullCardsQuery, nullCardsQuery]) => {
+        const cards = noNullCardsQuery
+          .concat(nullCardsQuery)
+          .map(card => card.toJSONapi());
+        res.json(cards);
+      })
+      .catch(next);
+
+    return;
+  }
+
   Card.find(dbQuery)
     .sort(sortQuery)
     .then(cards => {
