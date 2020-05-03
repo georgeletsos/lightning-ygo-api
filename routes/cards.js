@@ -118,16 +118,22 @@ router.get("/", function(req, res, next) {
     dbQuery.$or = [{ name: $regex }, { text: $regex }];
   }
 
-  // SortField & SortOrder
+  // PRIMARY Sort field & Sort order
   if (
     typeof req.query.sortField !== "undefined" &&
     typeof req.query.sortOrder !== "undefined"
   ) {
     sortQuery[req.query.sortField] = req.query.sortOrder;
+  } else {
+    // DEFAULT Sort field & Sort order = name & asc
+    sortQuery.name = "asc";
   }
 
-  // DEFAULT SortField & SortOrder
+  // SECONDARY Sort field & Sort order
   if (typeof sortQuery.name === "undefined") {
+    if (req.query.cardTypes.length > 1) {
+      sortQuery.cardType = "asc";
+    }
     sortQuery.name = "asc";
   }
 
