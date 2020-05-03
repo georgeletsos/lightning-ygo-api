@@ -33,7 +33,7 @@ router.get("/", function(req, res, next) {
 
   // Levels
   if (typeof req.query.levels !== "undefined") {
-    dbQuery.level = { $in: req.query.levels };
+    dbQuery.level = { $in: req.query.levels.map(level => Number(level)) };
   }
 
   // Monster Types
