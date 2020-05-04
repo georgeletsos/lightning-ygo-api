@@ -232,7 +232,7 @@ const questionMarkDefMonsters = [
 ];
 
 // Set Cloudinary config
-cloudinary.config(require("./cloudinary-config"));
+cloudinary.config(require("./config/cloudinary"));
 
 // Connect to MongoDB
 mongoose.connect(MONGODB_URI, {
