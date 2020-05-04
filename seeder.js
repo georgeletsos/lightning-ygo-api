@@ -317,7 +317,7 @@ const uploadImage = async (imageUrl, folder) => {
       types.push(apiCardType);
     }
 
-    // In case of a possible Effect Monster Card Types, add the Effect type at the end
+    // In case of a possible Effect Monster Card Types, add the Effect type to the end
     const possibleEffectMonsterCardTypes = ["fusion", "synchro"];
     if (
       possibleEffectMonsterCardTypes.some(possibleEffectMonsterCardType =>
@@ -331,7 +331,7 @@ const uploadImage = async (imageUrl, folder) => {
       types.push("effect");
     }
 
-    // In case of Effect Monsters with an Ability, add the Effect type at the end
+    // In case of Effect Monsters with an Ability, add the Effect type to the end
     const abilities = ["flip", "gemini", "spirit", "toon", "union"];
     if (
       abilities.some(ability => types.includes(ability)) &&
@@ -340,11 +340,19 @@ const uploadImage = async (imageUrl, folder) => {
       types.push("effect");
     }
 
-    // In case of Normal Tuner Monsters, move the Normal type to the end
-    const normalIndex = types.indexOf("normal");
-    if (normalIndex > -1 && normalIndex < types.length - 1) {
-      types.splice(normalIndex, 1);
-      types.push("normal");
+    // Tuner
+    if (types.includes("tuner")) {
+      // In case of Normal Tuner Monsters, move the Normal type to the end
+      if (types.includes("normal")) {
+        const normalIndex = types.indexOf("normal");
+        if (normalIndex < types.length - 1) {
+          types.splice(normalIndex, 1);
+          types.push("normal");
+        }
+      } else if (!types.includes("effect")) {
+        // In case of Effect Tuner Monsters where the Effect type doesn't exist, add it to the end
+        types.push("effect");
+      }
     }
 
     // Images
