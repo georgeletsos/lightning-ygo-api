@@ -137,10 +137,9 @@ router.get("/", function(req, res, next) {
     sortQuery.name = "asc";
   }
 
-  // In case of null values while sorting, 2 queries are needed to ensure that null values are always at the end
+  // In case of sorting possible null values, 2 queries are needed to ensure that null values are always at the end
   if (
     ["level", "atk", "def"].includes(req.query.sortField) &&
-    req.query.sortOrder === "asc" &&
     req.query.cardTypes.length > 1 &&
     req.query.cardTypes.includes("monster")
   ) {
@@ -155,9 +154,16 @@ router.get("/", function(req, res, next) {
       .sort(sortQuery);
 
     Promise.all([noNullCardsQuery, nullCardsQuery])
-      .then(([noNullCardsQuery, nullCardsQuery]) => {
-        const cards = noNullCardsQuery
-          .concat(nullCardsQuery)
+      .then(([noNullCards, nullCards]) => {
+        // In case of sorting possible "?" values, place them correctly at the start or end
+        noNullCards = utilities.spliceQuestionMarkCards(
+          noNullCards,
+          req.query.sortField,
+          req.query.sortOrder
+        );
+
+        const cards = noNullCards
+          .concat(nullCards)
           .map(card => card.toJSONapi());
         res.json(cards);
       })
@@ -169,6 +175,19 @@ router.get("/", function(req, res, next) {
   Card.find(dbQuery)
     .sort(sortQuery)
     .then(cards => {
+      if (
+        ["level", "atk", "def"].includes(req.query.sortField) &&
+        req.query.cardTypes.length === 1 &&
+        req.query.cardTypes.includes("monster")
+      ) {
+        // In case of sorting possible "?" values, place them correctly at the start or end
+        cards = utilities.spliceQuestionMarkCards(
+          cards,
+          req.query.sortField,
+          req.query.sortOrder
+        );
+      }
+
       cards = cards.map(card => card.toJSONapi());
       res.json(cards);
     })
