@@ -7,6 +7,8 @@ const ygoLists = require("./common/ygo-lists");
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/lightning-ygo-api";
 const UPLOAD_PATH = "/lightning_ygo_api/card_images";
+const CARD_BACK_URL =
+  "https://res.cloudinary.com/georgeletsos/image/upload/v1588620838/lightning_ygo_api/card_images/card_back.jpg";
 
 // Set Cloudinary config
 cloudinary.config(require("./config/cloudinary"));
@@ -37,27 +39,93 @@ const uploadImage = async (imageUrl, folder) => {
 };
 
 /**
- * Consume the api > upload images > seed the db
+ * Consume the api > upload images > seed the database
  */
 (async () => {
-  const apiResponse = await axios.get(
+  // ygopro Duel Links Cards
+  const ygoproDuelLinksCardsResponse = await axios.get(
     "https://db.ygoprodeck.com/api/v6/cardinfo.php?format=Duel Links"
   );
+  const ygoproDuelLinksCards = ygoproDuelLinksCardsResponse.data;
 
-  const apiCards = apiResponse.data;
-  const dbCards = await Card.find();
+  // ygopro All Cards
+  const ygoproAllCardsResponse = await axios.get(
+    "https://db.ygoprodeck.com/api/v6/cardinfo.php"
+  );
+  const ygoproAllCards = ygoproAllCardsResponse.data;
 
-  const diffCards = apiCards.filter(
-    apiCard =>
-      dbCards.filter(dbCard => dbCard.name === apiCard.name).length === 0
+  // DLM Exclusive Cards, populate them with the CARD BACK image because they don't exist in ygopro api
+  const dlmExclusiveCardsResponse = await axios.get(
+    "https://www.duellinksmeta.com/data-hashed/exclusiveCards-3d66d43f64.json"
+  );
+  const dlmExclusiveCards = dlmExclusiveCardsResponse.data.map(
+    dlmExclusiveCard => {
+      dlmExclusiveCard.image = {
+        id: 0,
+        big: CARD_BACK_URL,
+        small: CARD_BACK_URL,
+        art: CARD_BACK_URL
+      };
+      return dlmExclusiveCard;
+    }
   );
 
-  if (diffCards.length === 0) {
-    console.log("There are no differences between the api and the db");
+  // DLM All Cards
+  const dlmAllCardsResponse = await axios.get(
+    "https://www.duellinksmeta.com/data-hashed/cardObtain-c4d2575298.json"
+  );
+  const dlmAllCards = dlmAllCardsResponse.data
+    // Populate with data the Cards that were also found in the previous list of DLM Exclusive Cards
+    .map(dlmAllCard => {
+      const foundInDlmExclusiveCard = dlmExclusiveCards.find(
+        dlmExclusiveCard => dlmExclusiveCard.name === dlmAllCard.name
+      );
+      return foundInDlmExclusiveCard ? foundInDlmExclusiveCard : dlmAllCard;
+    });
+
+  // Cards that exist in DLM All Cards, but don't exist in ygopro Duel Links Cards
+  const dlmAndYgoproDuelLinksDiffCards = dlmAllCards
+    .filter(
+      dlmAllCard =>
+        !ygoproDuelLinksCards.some(
+          ygoproDuelLinksCard => ygoproDuelLinksCard.name === dlmAllCard.name
+        )
+    )
+    // Populate with data the diff Cards that were also found in the ygopro All Cards
+    .map(dlmAndYgoproDuelLinksDiffCard => {
+      const foundInYgoproCard = ygoproAllCards.find(
+        ygoproAllCard =>
+          ygoproAllCard.name === dlmAndYgoproDuelLinksDiffCard.name
+      );
+      return foundInYgoproCard
+        ? foundInYgoproCard
+        : dlmAndYgoproDuelLinksDiffCard;
+    })
+    // Remove any Cards without data, i.e. any DLM Cards that still have a "rarity" property
+    .filter(
+      dlmAndYgoproDuelLinksDiffCard =>
+        // eslint-disable-next-line
+        !dlmAndYgoproDuelLinksDiffCard.hasOwnProperty("rarity")
+    );
+
+  // Combine previous lists into api Cards
+  const apiCards = ygoproDuelLinksCards.concat(dlmAndYgoproDuelLinksDiffCards);
+
+  // Database Cards
+  const dbCards = await Card.find();
+
+  // Api Cards that are missing from the database
+  const missingCards = apiCards.filter(
+    apiCard => !dbCards.some(dbCard => dbCard.name === apiCard.name)
+  );
+
+  if (missingCards.length === 0) {
+    console.log("There are no cards missing from the database");
     return;
   }
 
-  for (const apiCard of diffCards) {
+  // Add the api Cards that are missing to the database
+  for (const apiCard of missingCards) {
     const apiCardTypes = apiCard.type
       .split(" ")
       .map(type => type.trim().toLowerCase())
@@ -133,16 +201,23 @@ const uploadImage = async (imageUrl, folder) => {
     }
 
     // Images
-    const apiCardImage = apiCard.card_images[0];
-    const image = {
-      id: apiCardImage.id,
-      big: await uploadImage(apiCardImage.image_url, "big"),
-      small: await uploadImage(apiCardImage.image_url_small, "small"),
-      art: await uploadImage(
-        apiCardImage.image_url.replace(/pics/gi, "pics_artgame"),
-        "art"
-      )
-    };
+    let image = {};
+    // eslint-disable-next-line
+    if (apiCard.hasOwnProperty("card_images")) {
+      const apiCardImage = apiCard.card_images[0];
+      image = {
+        id: apiCardImage.id,
+        big: await uploadImage(apiCardImage.image_url, "big"),
+        small: await uploadImage(apiCardImage.image_url_small, "small"),
+        art: await uploadImage(
+          apiCardImage.image_url.replace(/pics/gi, "pics_artgame"),
+          "art"
+        )
+      };
+      // eslint-disable-next-line
+    } else if (apiCard.hasOwnProperty("image")) {
+      image = apiCard.image;
+    }
 
     let atk = null;
     // eslint-disable-next-line
