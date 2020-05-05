@@ -226,7 +226,7 @@ const uploadImage = async (imageUrl, folder) => {
 
       // In case of 0 or ? ATK
       if (ygoLists.questionMarkAtkMonsters.includes(apiCard.name)) {
-        apiCard.atk = "?";
+        atk = "?";
       }
     }
 
@@ -237,7 +237,7 @@ const uploadImage = async (imageUrl, folder) => {
 
       // In case of 0 or ? DEF
       if (ygoLists.questionMarkDefMonsters.includes(apiCard.name)) {
-        apiCard.def = "?";
+        def = "?";
       }
     }
 
