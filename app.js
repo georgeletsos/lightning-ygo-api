@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const router = require("./routes/router");
+const database = require("./database");
 
 const PORT = process.env.PORT || 3000;
 const MONGODB_URI =
@@ -14,7 +15,19 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(() => console.log("Successfully connected to MongoDB"));
+  .then(() => {
+    console.log("Successfully connected to MongoDB");
+
+    // Day(s) * Hour(s) * Minute(s) * Second(s) * 1000
+    const aDayInMilliSeconds = 1 * 24 * 60 * 60 * 1e3;
+
+    // Update the database with any new api data once per day
+    const updateDb = () => {
+      database.updateDb().catch(error => console.log(error));
+    };
+    updateDb();
+    setInterval(updateDb, aDayInMilliSeconds);
+  });
 mongoose.set("debug", !isProduction);
 
 // Global app object
