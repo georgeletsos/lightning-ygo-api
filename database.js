@@ -7,8 +7,8 @@ const ygoLists = require("./common/ygo-lists");
 const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://localhost:27017/lightning-ygo-api";
 const UPLOAD_PATH = "/lightning_ygo_api/card_images";
-const CARD_BACK_URL =
-  "https://res.cloudinary.com/georgeletsos/image/upload/v1588620838/lightning_ygo_api/card_images/card_back.jpg";
+const CARD_BACK_WARNING_URL =
+  "https://res.cloudinary.com/georgeletsos/image/upload/v1588871867/lightning_ygo_api/card_images/card_back_warning.jpg";
 
 // Set Cloudinary config
 cloudinary.config(require("./config/cloudinary"));
@@ -66,9 +66,9 @@ const updateDb = async () => {
     dlmExclusiveCard => {
       dlmExclusiveCard.image = {
         id: 0,
-        big: CARD_BACK_URL,
-        small: CARD_BACK_URL,
-        art: CARD_BACK_URL
+        big: CARD_BACK_WARNING_URL,
+        small: CARD_BACK_WARNING_URL,
+        art: CARD_BACK_WARNING_URL
       };
       return dlmExclusiveCard;
     }
