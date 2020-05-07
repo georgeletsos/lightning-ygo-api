@@ -39,9 +39,9 @@ const uploadImage = async (imageUrl, folder) => {
 };
 
 /**
- * Consume the api > upload images > seed the database
+ * Consume the api > upload images > update the database
  */
-(async () => {
+const updateDb = async () => {
   // ygopro Duel Links Cards
   const ygoproDuelLinksCardsResponse = await axios.get(
     "https://db.ygoprodeck.com/api/v6/cardinfo.php?format=Duel Links"
@@ -55,9 +55,13 @@ const uploadImage = async (imageUrl, folder) => {
   const ygoproAllCards = ygoproAllCardsResponse.data;
 
   // DLM Exclusive Cards, populate them with the CARD BACK image because they don't exist in ygopro api
-  const dlmExclusiveCardsResponse = await axios.get(
-    "https://www.duellinksmeta.com/data-hashed/exclusiveCards-3d66d43f64.json"
-  );
+  const dlmExclusiveCardsResponse = await axios
+    .get(
+      "https://www.duellinksmeta.com/data-hashed/exclusiveCards-3d66d43f64.json"
+    )
+    .catch(error => {
+      throw new Error(`DLM Exclusive Cards ${error}`);
+    });
   const dlmExclusiveCards = dlmExclusiveCardsResponse.data.map(
     dlmExclusiveCard => {
       dlmExclusiveCard.image = {
@@ -71,9 +75,11 @@ const uploadImage = async (imageUrl, folder) => {
   );
 
   // DLM All Cards
-  const dlmAllCardsResponse = await axios.get(
-    "https://www.duellinksmeta.com/data-hashed/cardObtain-451ebc50f6.json"
-  );
+  const dlmAllCardsResponse = await axios
+    .get("https://www.duellinksmeta.com/data-hashed/cardObtain-451ebc50f6.json")
+    .catch(error => {
+      throw new Error(`DLM All Cards ${error}`);
+    });
   const dlmAllCards = dlmAllCardsResponse.data
     // Populate with data the Cards that were also found in the previous list of DLM Exclusive Cards
     .map(dlmAllCard => {
@@ -259,4 +265,6 @@ const uploadImage = async (imageUrl, folder) => {
 
     card.save().then(() => console.log(`${apiCard.name} was saved`));
   }
-})();
+};
+
+module.exports = { updateDb };
