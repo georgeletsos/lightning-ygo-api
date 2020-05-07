@@ -72,7 +72,7 @@ const uploadImage = async (imageUrl, folder) => {
 
   // DLM All Cards
   const dlmAllCardsResponse = await axios.get(
-    "https://www.duellinksmeta.com/data-hashed/cardObtain-c4d2575298.json"
+    "https://www.duellinksmeta.com/data-hashed/cardObtain-451ebc50f6.json"
   );
   const dlmAllCards = dlmAllCardsResponse.data
     // Populate with data the Cards that were also found in the previous list of DLM Exclusive Cards
