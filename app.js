@@ -36,7 +36,7 @@ const app = express();
 // Cors
 app.use(
   cors({
-    origin: ["http://localhost:8080"]
+    origin: ["http://localhost:8080", "https://lightning-ygo.herokuapp.com/"]
   })
 );
 
