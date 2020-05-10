@@ -11,7 +11,9 @@ const CARD_BACK_WARNING_URL =
   "https://res.cloudinary.com/georgeletsos/image/upload/v1588871867/lightning_ygo_api/card_images/card_back_warning.jpg";
 
 // Set Cloudinary config
-cloudinary.config(require("./config/cloudinary"));
+if (typeof process.env.CLOUDINARY_URL === "undefined") {
+  cloudinary.config(require("./config/cloudinary"));
+}
 
 // Connect to MongoDB
 mongoose.connect(MONGODB_URI, {
