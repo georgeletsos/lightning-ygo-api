@@ -2,9 +2,11 @@ const utilities = require("../common/utilities");
 
 // escapeRegExp
 it("escapeRegExp function should escape regex special charaters of a string correctly", () => {
-  const escapedRegExp = utilities.escapeRegExp("?");
+  const escapedRegExp = utilities.escapeRegExp(".*+-?^${}()|[]\\");
 
-  expect(escapedRegExp).toEqual("\\?");
+  expect(escapedRegExp).toEqual(
+    "\\.\\*\\+\\-\\?\\^\\$\\{\\}\\(\\)\\|\\[\\]\\\\"
+  );
 });
 
 // spliceQuestionMarkCards
