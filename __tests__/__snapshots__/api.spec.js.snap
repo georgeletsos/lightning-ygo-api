@@ -2800,6 +2800,25 @@ Array [
   },
   Object {
     "atk": 0,
+    "attribute": "dark",
+    "cardType": "monster",
+    "def": 0,
+    "image": Object {
+      "art": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816105/lightning_ygo_api/card_images/art/67284108.jpg",
+      "big": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816103/lightning_ygo_api/card_images/big/67284108.jpg",
+      "id": "67284108",
+      "small": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816104/lightning_ygo_api/card_images/small/67284108.jpg",
+    },
+    "level": 1,
+    "monsterType": "zombie",
+    "name": "Black Sheep Token",
+    "text": "Special Summoned by the effect of \\"Scapeghost\\".",
+    "types": Array [
+      "token",
+    ],
+  },
+  Object {
+    "atk": 0,
     "attribute": "earth",
     "cardType": "monster",
     "def": 0,
@@ -2851,6 +2870,28 @@ Array [
     "monsterType": "machine",
     "name": "Compass Token",
     "text": "Special Summoned with the effect of \\"Cosmic Compass\\".",
+    "types": Array [
+      "token",
+    ],
+  },
+  Object {
+    "atk": 0,
+    "attribute": "water",
+    "cardType": "monster",
+    "def": 0,
+    "image": Object {
+      "art": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816110/lightning_ygo_api/card_images/art/55326323.jpg",
+      "big": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816108/lightning_ygo_api/card_images/big/55326323.jpg",
+      "id": "55326323",
+      "small": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816109/lightning_ygo_api/card_images/small/55326323.jpg",
+    },
+    "level": 1,
+    "monsterType": "machine",
+    "name": "Crystron Token",
+    "text": "This card can be used as a \\"Crystron Token\\".
+
+
+*If used for another Token, apply that Token's Type/Attribute/Level/ATK/DEF.",
     "types": Array [
       "token",
     ],
@@ -3708,6 +3749,25 @@ Array [
     ],
   },
   Object {
+    "atk": 0,
+    "attribute": "earth",
+    "cardType": "monster",
+    "def": 0,
+    "image": Object {
+      "art": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816130/lightning_ygo_api/card_images/art/15394084.jpg",
+      "big": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816127/lightning_ygo_api/card_images/big/15394084.jpg",
+      "id": "15394084",
+      "small": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816129/lightning_ygo_api/card_images/small/15394084.jpg",
+    },
+    "level": 3,
+    "monsterType": "beast",
+    "name": "Nordic Beast Token",
+    "text": "Special Summoned with the effect of \\"Tanngrisnir of the Nordic Beasts\\".",
+    "types": Array [
+      "token",
+    ],
+  },
+  Object {
     "atk": 1200,
     "attribute": "earth",
     "cardType": "monster",
@@ -3798,6 +3858,25 @@ Array [
     "monsterType": "warrior",
     "name": "Double Dude Token",
     "text": "Special Summoned with the effect of \\"Destiny HERO - Double Dude\\".",
+    "types": Array [
+      "token",
+    ],
+  },
+  Object {
+    "atk": 1000,
+    "attribute": "earth",
+    "cardType": "monster",
+    "def": 1000,
+    "image": Object {
+      "art": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816119/lightning_ygo_api/card_images/art/40844553.jpg",
+      "big": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816116/lightning_ygo_api/card_images/big/40844553.jpg",
+      "id": "40844553",
+      "small": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816118/lightning_ygo_api/card_images/small/40844553.jpg",
+    },
+    "level": 4,
+    "monsterType": "warrior",
+    "name": "Einherjar Token",
+    "text": "Special Summon with the effect of \\"Valkyrie of the Nordic Ascendant\\".",
     "types": Array [
       "token",
     ],
@@ -4038,6 +4117,25 @@ Array [
     ],
   },
   Object {
+    "atk": 1000,
+    "attribute": "earth",
+    "cardType": "monster",
+    "def": 1000,
+    "image": Object {
+      "art": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816119/lightning_ygo_api/card_images/art/40844553.jpg",
+      "big": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816116/lightning_ygo_api/card_images/big/40844553.jpg",
+      "id": "40844553",
+      "small": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816118/lightning_ygo_api/card_images/small/40844553.jpg",
+    },
+    "level": 4,
+    "monsterType": "warrior",
+    "name": "Einherjar Token",
+    "text": "Special Summon with the effect of \\"Valkyrie of the Nordic Ascendant\\".",
+    "types": Array [
+      "token",
+    ],
+  },
+  Object {
     "atk": 1800,
     "attribute": "earth",
     "cardType": "monster",
@@ -4213,6 +4311,25 @@ Array [
     ],
   },
   Object {
+    "atk": 0,
+    "attribute": "earth",
+    "cardType": "monster",
+    "def": 0,
+    "image": Object {
+      "art": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816130/lightning_ygo_api/card_images/art/15394084.jpg",
+      "big": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816127/lightning_ygo_api/card_images/big/15394084.jpg",
+      "id": "15394084",
+      "small": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816129/lightning_ygo_api/card_images/small/15394084.jpg",
+    },
+    "level": 3,
+    "monsterType": "beast",
+    "name": "Nordic Beast Token",
+    "text": "Special Summoned with the effect of \\"Tanngrisnir of the Nordic Beasts\\".",
+    "types": Array [
+      "token",
+    ],
+  },
+  Object {
     "atk": 1200,
     "attribute": "earth",
     "cardType": "monster",
@@ -4370,6 +4487,25 @@ Array [
   },
   Object {
     "atk": 0,
+    "attribute": "dark",
+    "cardType": "monster",
+    "def": 0,
+    "image": Object {
+      "art": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816105/lightning_ygo_api/card_images/art/67284108.jpg",
+      "big": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816103/lightning_ygo_api/card_images/big/67284108.jpg",
+      "id": "67284108",
+      "small": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816104/lightning_ygo_api/card_images/small/67284108.jpg",
+    },
+    "level": 1,
+    "monsterType": "zombie",
+    "name": "Black Sheep Token",
+    "text": "Special Summoned by the effect of \\"Scapeghost\\".",
+    "types": Array [
+      "token",
+    ],
+  },
+  Object {
+    "atk": 0,
     "attribute": "earth",
     "cardType": "monster",
     "def": 0,
@@ -4421,6 +4557,28 @@ Array [
     "monsterType": "machine",
     "name": "Compass Token",
     "text": "Special Summoned with the effect of \\"Cosmic Compass\\".",
+    "types": Array [
+      "token",
+    ],
+  },
+  Object {
+    "atk": 0,
+    "attribute": "water",
+    "cardType": "monster",
+    "def": 0,
+    "image": Object {
+      "art": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816110/lightning_ygo_api/card_images/art/55326323.jpg",
+      "big": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816108/lightning_ygo_api/card_images/big/55326323.jpg",
+      "id": "55326323",
+      "small": "https://res.cloudinary.com/georgeletsos/image/upload/v1589816109/lightning_ygo_api/card_images/small/55326323.jpg",
+    },
+    "level": 1,
+    "monsterType": "machine",
+    "name": "Crystron Token",
+    "text": "This card can be used as a \\"Crystron Token\\".
+
+
+*If used for another Token, apply that Token's Type/Attribute/Level/ATK/DEF.",
     "types": Array [
       "token",
     ],
