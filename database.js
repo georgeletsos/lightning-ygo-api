@@ -78,7 +78,7 @@ const updateDb = async () => {
 
   // DLM All Cards
   const dlmAllCardsResponse = await axios
-    .get("https://www.duellinksmeta.com/data-hashed/cardObtain-451ebc50f6.json")
+    .get("https://www.duellinksmeta.com/data-hashed/cardObtain-996b90a53f.json")
     .catch(error => {
       throw new Error(`DLM All Cards ${error}`);
     });
