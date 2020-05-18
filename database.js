@@ -24,7 +24,8 @@ const uploadImage = async (imageUrl, folder) => {
   const uploadResponse = await cloudinary.uploader.upload(imageUrl, {
     folder: uploadPath,
     use_filename: true,
-    unique_filename: false
+    unique_filename: false,
+    overwrite: false
   });
 
   return uploadResponse.secure_url;
@@ -122,11 +123,13 @@ const fetchMissingCards = async () => {
 };
 
 /**
- * Inserts any missing cards into the database, after uploading the images to Cloudinary.
+ * Convert any missing cards' data and upload their images to Cloudinary.
  * @param {Array} missingCards An array of missing cards.
+ * @returns {Array} An array of converted cards.
  */
-const insertMissingCards = async missingCards => {
-  // Add the API Cards that are missing to the database
+const convertMissingCards = async missingCards => {
+  let convertedCards = [];
+
   for (const apiCard of missingCards) {
     const apiCardTypes = apiCard.type
       .split(" ")
@@ -244,7 +247,7 @@ const insertMissingCards = async missingCards => {
     }
 
     // Final Card
-    const card = new Card({
+    const convertedCard = new Card({
       cardType,
       name: apiCard.name,
       attribute: apiCard.attribute
@@ -259,13 +262,15 @@ const insertMissingCards = async missingCards => {
       image
     });
 
-    card.save().then(() => console.log(`${apiCard.name} was saved`));
+    convertedCards.push(convertedCard);
   }
+
+  return convertedCards;
 };
 
 /**
- * Calls the previous functions in order.
- * Consumes the APIs > Upload the images > Insert into database
+ * Call the previous functions in order.
+ * Consume the APIs > Convert data and Upload the images > Insert everything into the database
  */
 const updateDb = async () => {
   const missingCards = await fetchMissingCards();
@@ -274,7 +279,17 @@ const updateDb = async () => {
     return;
   }
 
-  insertMissingCards(missingCards);
+  const convertedCards = await convertMissingCards(missingCards);
+
+  Card.insertMany(convertedCards)
+    .then(convertedCards => {
+      console.log(
+        `${convertedCards.length} missing cards were added to the database successfully`
+      );
+    })
+    .catch(error => {
+      throw new Error(`Insert Many Converted Cards ${error}`);
+    });
 };
 
-module.exports = { fetchMissingCards, insertMissingCards, updateDb };
+module.exports = { fetchMissingCards, convertMissingCards, updateDb };
