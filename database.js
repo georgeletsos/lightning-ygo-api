@@ -1,11 +1,8 @@
-const mongoose = require("mongoose");
 const axios = require("axios");
 const cloudinary = require("cloudinary").v2;
 const Card = require("./models/Card");
 const ygoLists = require("./common/ygo-lists");
 
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/lightning-ygo-api";
 const UPLOAD_PATH = "/lightning_ygo_api/card_images";
 const CARD_BACK_WARNING_URL =
   "https://res.cloudinary.com/georgeletsos/image/upload/v1588871867/lightning_ygo_api/card_images/card_back_warning.jpg";
@@ -14,13 +11,6 @@ const CARD_BACK_WARNING_URL =
 if (typeof process.env.CLOUDINARY_URL === "undefined") {
   cloudinary.config(require("./config/cloudinary"));
 }
-
-// Connect to MongoDB
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-mongoose.set("debug", true);
 
 /**
  * Upload Image to Cloudinary.
@@ -41,9 +31,10 @@ const uploadImage = async (imageUrl, folder) => {
 };
 
 /**
- * Consume the api > upload images > update the database
+ * Fetch cards that are missing from the database by comparing ygopro and DLM APIs.
+ * @returns {Array} An array of missing cards.
  */
-const updateDb = async () => {
+const fetchMissingCards = async () => {
   // ygopro Duel Links Cards
   const ygoproDuelLinksCardsResponse = await axios.get(
     "https://db.ygoprodeck.com/api/v6/cardinfo.php?format=Duel Links"
@@ -116,23 +107,26 @@ const updateDb = async () => {
         !dlmAndYgoproDuelLinksDiffCard.hasOwnProperty("rarity")
     );
 
-  // Combine previous lists into api Cards
+  // Combine previous lists into API Cards
   const apiCards = ygoproDuelLinksCards.concat(dlmAndYgoproDuelLinksDiffCards);
 
   // Database Cards
   const dbCards = await Card.find();
 
-  // Api Cards that are missing from the database
+  // API Cards that are missing from the database
   const missingCards = apiCards.filter(
     apiCard => !dbCards.some(dbCard => dbCard.name === apiCard.name)
   );
 
-  if (missingCards.length === 0) {
-    console.log("There are no cards missing from the database");
-    return;
-  }
+  return missingCards;
+};
 
-  // Add the api Cards that are missing to the database
+/**
+ * Inserts any missing cards into the database, after uploading the images to Cloudinary.
+ * @param {Array} missingCards An array of missing cards.
+ */
+const insertMissingCards = async missingCards => {
+  // Add the API Cards that are missing to the database
   for (const apiCard of missingCards) {
     const apiCardTypes = apiCard.type
       .split(" ")
@@ -152,7 +146,7 @@ const updateDb = async () => {
         break;
       }
 
-      // Describe Api Card Race as type or monster type
+      // Describe API Card Race as type or monster type
       if (["monster", "spell", "trap"].includes(apiCardType)) {
         cardType = apiCardType;
 
@@ -269,4 +263,18 @@ const updateDb = async () => {
   }
 };
 
-module.exports = { updateDb };
+/**
+ * Calls the previous functions in order.
+ * Consumes the APIs > Upload the images > Insert into database
+ */
+const updateDb = async () => {
+  const missingCards = await fetchMissingCards();
+  if (missingCards.length === 0) {
+    console.log("There are no cards missing from the database");
+    return;
+  }
+
+  insertMissingCards(missingCards);
+};
+
+module.exports = { fetchMissingCards, insertMissingCards, updateDb };
