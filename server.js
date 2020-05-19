@@ -19,7 +19,7 @@ mongoose
     // Day(s) * Hour(s) * Minute(s) * Second(s) * 1000
     const aDayInMilliSeconds = 1 * 24 * 60 * 60 * 1e3;
 
-    // Update the database with any new api data once per day
+    // Update the database with any new API data once per day
     const updateDb = () => {
       database.updateDb().catch(error => console.log(error));
     };

@@ -1,7 +1,7 @@
 {
   "name": "lightning-ygo-api",
   "version": "1.0.0",
-  "description": "Ygo Api built with Node.js, Express and Mongoose",
+  "description": "Ygo API built with Node.js, Express and Mongoose",
   "main": "app.js",
   "scripts": {
     "start": "node ./server.js",
