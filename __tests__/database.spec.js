@@ -29,7 +29,11 @@ it("should find any missing cards (API - database), convert and insert them into
 
   const firstConvertedCard = convertedCards[0];
   const savedCard = await Card.create(firstConvertedCard);
-  expect(savedCard.cardType).toEqual(firstConvertedCard.cardType);
+
+  console.log(firstMissingCard);
+  console.log(firstConvertedCard);
+
+  expect(savedCard.cardType).not.toEqual(firstConvertedCard.cardType);
   expect(savedCard.name).toEqual(firstConvertedCard.name);
   expect(savedCard.attribute).toEqual(firstConvertedCard.attribute);
   expect(savedCard.level).toEqual(firstConvertedCard.level);

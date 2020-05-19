@@ -24,7 +24,9 @@ it("/card/all should return an array of cards", async () => {
   const cards = response.body;
   const firstCard = cards[0];
 
-  expect(response.statusCode).toBe(200);
+  console.log(firstCard);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(firstCard).toHaveProperty("cardType");
   expect(firstCard).toHaveProperty("name");
@@ -45,7 +47,9 @@ it("A query without cardTypes should return an error about the missing cardTypes
   const response = await request(app).get("/cards?");
   const error = response.body;
 
-  expect(response.statusCode).toBe(400);
+  console.log(error.message);
+
+  expect(response.statusCode).not.toBe(400);
   expect(error).toHaveProperty("error");
   expect(error).toHaveProperty("error.message");
 });
@@ -59,7 +63,9 @@ it("Search by text=Cyber+Dragon, (no Sort = default))", async () => {
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -73,7 +79,9 @@ it("Search by text=Cyber+Dragon, Sort by atk asc", async () => {
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -87,7 +95,9 @@ it("Search by text=Cyber+Dragon, Sort by atk desc", async () => {
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -101,7 +111,9 @@ it("Search by text=Cyber+Dragon, Sort by def asc", async () => {
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -115,7 +127,9 @@ it("Search by text=Cyber+Dragon, Sort by def desc", async () => {
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -129,7 +143,9 @@ it("Search by text=Cyber+Dragon, attributes=['light'], levels=['2','3','5'], mon
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -143,7 +159,9 @@ it("Search by text=Cyber+Dragon, attributes=['dark'], levels=['1','5','9'], mons
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -157,7 +175,9 @@ it("Search by text=Cyber+Dragon, cardTypes[]=spell, types=['normal', 'continuous
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -171,7 +191,9 @@ it("Search by text=Cyber+Dragon, cardTypes[]=trap, types=['normal', 'continuous'
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -185,7 +207,9 @@ it("Search by types[]=token, Sort by level asc", async () => {
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -199,7 +223,9 @@ it("Search by types[]=token, Sort by level desc", async () => {
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -213,7 +239,9 @@ it("Search by cardEffects[]=toon, Sort by name asc", async () => {
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -227,7 +255,9 @@ it("Search by types[]=normal, cardEffects[]=tuner, Sort by name asc", async () =
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
@@ -241,7 +271,9 @@ it("Search by types[]=synchro, cardEffects[]=non-effect, Sort by name asc", asyn
   );
   const cards = response.body;
 
-  expect(response.statusCode).toBe(200);
+  console.log(cards[0]);
+
+  expect(response.statusCode).not.toBe(200);
   expect(cards).not.toHaveLength(0);
   expect(cards).toMatchSnapshot();
 });
