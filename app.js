@@ -11,7 +11,8 @@ const app = express();
 // Cors
 app.use(
   cors({
-    origin: ["http://localhost:8080", "https://lightning-ygo.herokuapp.com"]
+    origin: ["http://localhost:8080", "https://lightning-ygo.herokuapp.com"],
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   })
 );
 
