@@ -16,8 +16,7 @@ afterAll(() => {
   mongoose.disconnect();
 });
 
-// /card/all
-it("|/card/all| should return an array of cards", async () => {
+test("|/card/all| should return an array of cards", async () => {
   expect.assertions(12);
 
   const response = await request(app).get("/cards/all");
@@ -38,8 +37,7 @@ it("|/card/all| should return an array of cards", async () => {
   expect(firstCard).toHaveProperty("image");
 });
 
-// /cards? query without cardTypes
-it("A query without cardTypes should return an error about the missing cardTypes", async () => {
+test("A query without cardTypes should return an error about the missing cardTypes", async () => {
   expect.assertions(3);
 
   const response = await request(app).get("/cards?");
@@ -50,8 +48,7 @@ it("A query without cardTypes should return an error about the missing cardTypes
   expect(error).toHaveProperty("error.message");
 });
 
-// Search by text=Cyber+Dragon, (no Sort = default)
-it("Search by text=Cyber+Dragon, (no Sort = default))", async () => {
+it("searches by text=Cyber+Dragon, (no Sort = default))", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
@@ -64,8 +61,7 @@ it("Search by text=Cyber+Dragon, (no Sort = default))", async () => {
   expect(cards).toMatchSnapshot();
 });
 
-// Search by text=Cyber+Dragon, Sort by atk asc
-it("Search by text=Cyber+Dragon, Sort by atk asc", async () => {
+it("searches by text=Cyber+Dragon, Sort by atk asc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
@@ -78,8 +74,7 @@ it("Search by text=Cyber+Dragon, Sort by atk asc", async () => {
   expect(cards).toMatchSnapshot();
 });
 
-// Search by text=Cyber+Dragon, Sort by atk desc
-it("Search by text=Cyber+Dragon, Sort by atk desc", async () => {
+it("searches by text=Cyber+Dragon, Sort by atk desc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
@@ -92,8 +87,7 @@ it("Search by text=Cyber+Dragon, Sort by atk desc", async () => {
   expect(cards).toMatchSnapshot();
 });
 
-// Search by text=Cyber+Dragon, Sort by def asc
-it("Search by text=Cyber+Dragon, Sort by def asc", async () => {
+it("searches by text=Cyber+Dragon, Sort by def asc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
@@ -106,8 +100,7 @@ it("Search by text=Cyber+Dragon, Sort by def asc", async () => {
   expect(cards).toMatchSnapshot();
 });
 
-// Search by text=Cyber+Dragon, Sort by def desc
-it("Search by text=Cyber+Dragon, Sort by def desc", async () => {
+it("searches by text=Cyber+Dragon, Sort by def desc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
@@ -120,8 +113,7 @@ it("Search by text=Cyber+Dragon, Sort by def desc", async () => {
   expect(cards).toMatchSnapshot();
 });
 
-// Search by text=Cyber+Dragon, attributes=['light'], levels=['2','3','5'], monsterTypes=['machine'], types=['effect'], Sort by name asc"
-it("Search by text=Cyber+Dragon, attributes=['light'], levels=['2','3','5'], monsterTypes=['machine'], types=['effect'], Sort by name asc", async () => {
+it("searches by text=Cyber+Dragon, attributes=['light'], levels=['2','3','5'], monsterTypes=['machine'], types=['effect'], Sort by name asc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
@@ -134,8 +126,7 @@ it("Search by text=Cyber+Dragon, attributes=['light'], levels=['2','3','5'], mon
   expect(cards).toMatchSnapshot();
 });
 
-// Search by text=Cyber+Dragon, attributes=['dark'], levels=['1','5','9'], monsterTypes=['machine'], types=['fusion'], Sort by name desc"
-it("Search by text=Cyber+Dragon, attributes=['dark'], levels=['1','5','9'], monsterTypes=['machine'], types=['fusion'], Sort by name desc", async () => {
+it("searches by text=Cyber+Dragon, attributes=['dark'], levels=['1','5','9'], monsterTypes=['machine'], types=['fusion'], Sort by name desc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
@@ -148,8 +139,7 @@ it("Search by text=Cyber+Dragon, attributes=['dark'], levels=['1','5','9'], mons
   expect(cards).toMatchSnapshot();
 });
 
-// Search by text=Cyber+Dragon, cardTypes[]=spell, types=['normal', 'continuous', 'quick-play'], Sort by name asc"
-it("Search by text=Cyber+Dragon, cardTypes[]=spell, types=['normal', 'continuous', 'quick-play'], Sort by name asc", async () => {
+it("searches by text=Cyber+Dragon, cardTypes[]=spell, types=['normal', 'continuous', 'quick-play'], Sort by name asc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
@@ -162,8 +152,7 @@ it("Search by text=Cyber+Dragon, cardTypes[]=spell, types=['normal', 'continuous
   expect(cards).toMatchSnapshot();
 });
 
-// Search by text=Cyber+Dragon, cardTypes[]=trap, types=['normal', 'continuous', 'counter'], Sort by name asc"
-it("Search by text=Cyber+Dragon, cardTypes[]=trap, types=['normal', 'continuous', 'counter'], Sort by name asc", async () => {
+it("searches by text=Cyber+Dragon, cardTypes[]=trap, types=['normal', 'continuous', 'counter'], Sort by name asc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
@@ -176,12 +165,11 @@ it("Search by text=Cyber+Dragon, cardTypes[]=trap, types=['normal', 'continuous'
   expect(cards).toMatchSnapshot();
 });
 
-// Search by types[]=token, Sort by level asc
-it("Search by types[]=token, Sort by level asc", async () => {
+it("searches by types[]=token, text=destroy, Sort by level asc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
-    "/cards?cardTypes[]=monster&types[]=token&sortField=level&sortOrder=asc"
+    "/cards?cardTypes[]=monster&types[]=token&text=destroy&sortField=level&sortOrder=asc"
   );
   const cards = response.body;
 
@@ -190,12 +178,11 @@ it("Search by types[]=token, Sort by level asc", async () => {
   expect(cards).toMatchSnapshot();
 });
 
-// Search by types[]=token, Sort by level desc
-it("Search by types[]=token, Sort by level desc", async () => {
+it("searches by types[]=token, text=destroy, Sort by level desc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
-    "/cards?cardTypes[]=monster&types[]=token&sortField=level&sortOrder=desc"
+    "/cards?cardTypes[]=monster&types[]=token&text=destroy&sortField=level&sortOrder=desc"
   );
   const cards = response.body;
 
@@ -204,8 +191,7 @@ it("Search by types[]=token, Sort by level desc", async () => {
   expect(cards).toMatchSnapshot();
 });
 
-// Search by cardEffects[]=toon, Sort by name asc
-it("Search by cardEffects[]=toon, Sort by name asc", async () => {
+it("searches by cardEffects[]=toon, Sort by name asc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
@@ -218,8 +204,7 @@ it("Search by cardEffects[]=toon, Sort by name asc", async () => {
   expect(cards).toMatchSnapshot();
 });
 
-// Search by types[]=normal, cardEffects[]=tuner, Sort by name asc
-it("Search by types[]=normal, cardEffects[]=tuner, Sort by name asc", async () => {
+it("searches by types[]=normal, cardEffects[]=tuner, Sort by name asc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
@@ -232,8 +217,7 @@ it("Search by types[]=normal, cardEffects[]=tuner, Sort by name asc", async () =
   expect(cards).toMatchSnapshot();
 });
 
-// Search by types[]=synchro, cardEffects[]=non-effect, Sort by name asc
-it("Search by types[]=synchro, cardEffects[]=non-effect, Sort by name asc", async () => {
+it("searches by types[]=synchro, cardEffects[]=non-effect, Sort by name asc", async () => {
   expect.assertions(3);
 
   const response = await request(app).get(
