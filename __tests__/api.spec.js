@@ -17,7 +17,7 @@ afterAll(() => {
 });
 
 // /card/all
-it("/card/all should return an array of cards", async () => {
+it("|/card/all| should return an array of cards", async () => {
   expect.assertions(12);
 
   const response = await request(app).get("/cards/all");
