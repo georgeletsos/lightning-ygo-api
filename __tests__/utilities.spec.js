@@ -1,6 +1,6 @@
 const utilities = require("../common/utilities");
 
-it("|escapeRegExp| should escape regex special charaters of a string correctly", () => {
+it("`escapeRegExp(str)` - should escape regex special charaters of a given string", () => {
   const escapedRegExp = utilities.escapeRegExp(".*+-?^${}()|[]\\");
 
   expect(escapedRegExp).toEqual(
@@ -8,7 +8,7 @@ it("|escapeRegExp| should escape regex special charaters of a string correctly",
   );
 });
 
-it("|spliceQuestionMarkCards| should splice cards of an array with '?' values based on sort field, and place them at the start or end of the array based on sort order (cards are assumed to be already sorted by MongoDB)", () => {
+it("`spliceQuestionMarkCards(cards, sortField, sortOrder)` - should splice cards of an array with '?' values based on sort field, and place them at the start or end of the array based on sort order (cards are assumed to be already sorted by MongoDB)", () => {
   const sortField = "level";
 
   const cardsAsc = utilities.spliceQuestionMarkCards(
