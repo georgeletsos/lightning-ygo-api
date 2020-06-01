@@ -3,6 +3,7 @@ const { MongoMemoryServer } = require("mongodb-memory-server");
 const mongoServer = new MongoMemoryServer();
 const database = require("../database");
 const Card = require("../models/Card");
+const mocks = require("./mocks");
 
 beforeAll(async () => {
   const uri = await mongoServer.getUri();
@@ -17,26 +18,47 @@ afterAll(async () => {
   await mongoServer.stop();
 });
 
-it("should find any missing cards (API - database), convert and insert them into the database", async () => {
-  expect.assertions(12);
+it("`fetchMissingCards()` - should find any missing cards between the API and the database)", async () => {
+  expect.assertions(1);
 
   const missingCards = await database.fetchMissingCards();
   expect(missingCards).not.toHaveLength(0);
+}, 30000);
 
-  const firstMissingCard = missingCards[0];
-  const convertedCards = await database.convertMissingCards([firstMissingCard]);
-  expect(convertedCards).not.toHaveLength(0);
+it("`convertMissingCards(missingCards)` - should convert any given missing cards based on the database schema", async () => {
+  expect.assertions(1);
 
-  const firstConvertedCard = convertedCards[0];
-  const savedCard = await Card.create(firstConvertedCard);
-  expect(savedCard.cardType).toEqual(firstConvertedCard.cardType);
-  expect(savedCard.name).toEqual(firstConvertedCard.name);
-  expect(savedCard.attribute).toEqual(firstConvertedCard.attribute);
-  expect(savedCard.level).toEqual(firstConvertedCard.level);
-  expect(savedCard.monsterType).toEqual(firstConvertedCard.monsterType);
-  expect(savedCard.types).toEqual(firstConvertedCard.types);
-  expect(savedCard.text).toEqual(firstConvertedCard.text);
-  expect(savedCard.atk).toEqual(firstConvertedCard.atk);
-  expect(savedCard.def).toEqual(firstConvertedCard.def);
-  expect(savedCard.image).toEqual(firstConvertedCard.image);
-}, 60000);
+  const convertedMissingCards = await database.convertMissingCards(
+    mocks.mockMissingCards
+  );
+
+  const convertedMissingCardsWithout_id = JSON.parse(
+    JSON.stringify(convertedMissingCards)
+  );
+  convertedMissingCardsWithout_id.forEach(convertedMissingCard => {
+    delete convertedMissingCard._id;
+  });
+
+  expect(convertedMissingCardsWithout_id).toMatchSnapshot();
+}, 30000);
+
+it("should save a card to the database", async () => {
+  expect.assertions(10);
+
+  const convertedMissingCards = await database.convertMissingCards(
+    mocks.mockMissingCards
+  );
+  const convertedCard = convertedMissingCards[2];
+
+  const savedCard = await Card.create(convertedCard);
+  expect(savedCard.cardType).toEqual(convertedCard.cardType);
+  expect(savedCard.name).toEqual(convertedCard.name);
+  expect(savedCard.attribute).toEqual(convertedCard.attribute);
+  expect(savedCard.level).toEqual(convertedCard.level);
+  expect(savedCard.monsterType).toEqual(convertedCard.monsterType);
+  expect(savedCard.types).toEqual(convertedCard.types);
+  expect(savedCard.text).toEqual(convertedCard.text);
+  expect(savedCard.atk).toEqual(convertedCard.atk);
+  expect(savedCard.def).toEqual(convertedCard.def);
+  expect(savedCard.image).toEqual(convertedCard.image);
+}, 30000);
