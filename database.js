@@ -51,7 +51,7 @@ const fetchMissingCards = async () => {
   // DLM Exclusive Cards, populate them with the CARD BACK image because they don't exist in ygopro api
   const dlmExclusiveCardsResponse = await axios
     .get(
-      "https://www.duellinksmeta.com/data-hashed/exclusiveCards-0228b81d99.json"
+      "https://www.duellinksmeta.com/data-hashed/exclusiveCards-0bd3602ce7.json"
     )
     .catch(error => {
       throw new Error(`DLM Exclusive Cards ${error}`);
@@ -70,7 +70,7 @@ const fetchMissingCards = async () => {
 
   // DLM All Cards
   const dlmAllCardsResponse = await axios
-    .get("https://www.duellinksmeta.com/data-hashed/cardObtain-9f9ecb684c.json")
+    .get("https://www.duellinksmeta.com/data-hashed/cardObtain-892fdaaaea.json")
     .catch(error => {
       throw new Error(`DLM All Cards ${error}`);
     });
