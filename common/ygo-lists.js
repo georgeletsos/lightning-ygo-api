@@ -57,13 +57,13 @@ const nonEffectFusionMonsters = [
   "Twin-Headed Thunder Dragon",
   "Vermillion Sparrow",
   "Warrior of Tradition",
-  "Zombie Warrior"
+  "Zombie Warrior",
 ];
 
 const nonEffectSynchroMonsters = [
   "Gaia Knight, the Force of Earth",
   "Naturia Leodrake",
-  "Scrap Archfiend"
+  "Scrap Archfiend",
 ];
 
 const questionMarkAtkMonsters = [
@@ -157,7 +157,7 @@ const questionMarkAtkMonsters = [
   "The Winged Dragon of Ra - Sphere Mode",
   "Winged Kuriboh 9",
   "Winged Kuriboh LV9",
-  "Worm Zero"
+  "Worm Zero",
 ];
 
 const questionMarkDefMonsters = [
@@ -223,12 +223,12 @@ const questionMarkDefMonsters = [
   "The Winged Dragon of Ra",
   "The Winged Dragon of Ra - Sphere Mode",
   "Winged Kuriboh 9",
-  "Winged Kuriboh LV9"
+  "Winged Kuriboh LV9",
 ];
 
 module.exports = {
   nonEffectFusionMonsters,
   nonEffectSynchroMonsters,
   questionMarkAtkMonsters,
-  questionMarkDefMonsters
+  questionMarkDefMonsters,
 };

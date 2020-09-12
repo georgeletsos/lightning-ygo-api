@@ -1,4 +1,4 @@
 module.exports = {
   testEnvironment: "node",
-  modulePathIgnorePatterns: ["./__tests__/mocks.js"]
+  modulePathIgnorePatterns: ["./__tests__/mocks.js"],
 };

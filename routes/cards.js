@@ -5,8 +5,8 @@ const utilities = require("../common/utilities");
 // Return all cards
 router.get("/all", (req, res, next) => {
   Card.find()
-    .then(cards => {
-      cards = cards.map(card => card.toJSONapi());
+    .then((cards) => {
+      cards = cards.map((card) => card.toJSONapi());
       res.json(cards);
     })
     .catch(next);
@@ -33,7 +33,7 @@ router.get("/", function(req, res, next) {
 
   // Levels
   if (typeof req.query.levels !== "undefined") {
-    dbQuery.level = { $in: req.query.levels.map(level => Number(level)) };
+    dbQuery.level = { $in: req.query.levels.map((level) => Number(level)) };
   }
 
   // Monster Types
@@ -65,7 +65,7 @@ router.get("/", function(req, res, next) {
 
         types.$in.push(possibleEffectMonsterCardType);
         types.$nin = types.$nin.filter(
-          type => type !== possibleEffectMonsterCardType
+          (type) => type !== possibleEffectMonsterCardType
         );
       }
     }
@@ -113,7 +113,7 @@ router.get("/", function(req, res, next) {
   // Text
   if (typeof req.query.text !== "undefined") {
     const $regex = {
-      $regex: new RegExp(utilities.escapeRegExp(req.query.text), "i")
+      $regex: new RegExp(utilities.escapeRegExp(req.query.text), "i"),
     };
     dbQuery.$or = [{ name: $regex }, { text: $regex }];
   }
@@ -164,7 +164,7 @@ router.get("/", function(req, res, next) {
 
         const cards = noNullCards
           .concat(nullCards)
-          .map(card => card.toJSONapi());
+          .map((card) => card.toJSONapi());
         res.json(cards);
       })
       .catch(next);
@@ -174,7 +174,7 @@ router.get("/", function(req, res, next) {
 
   Card.find(dbQuery)
     .sort(sortQuery)
-    .then(cards => {
+    .then((cards) => {
       if (
         ["level", "atk", "def"].includes(req.query.sortField) &&
         req.query.cardTypes.length === 1 &&
@@ -188,7 +188,7 @@ router.get("/", function(req, res, next) {
         );
       }
 
-      cards = cards.map(card => card.toJSONapi());
+      cards = cards.map((card) => card.toJSONapi());
       res.json(cards);
     })
     .catch(next);

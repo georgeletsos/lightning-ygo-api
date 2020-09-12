@@ -8,7 +8,7 @@ const MONGODB_URI =
 beforeAll(() => {
   mongoose.connect(MONGODB_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   });
 });
 

@@ -9,7 +9,7 @@ beforeAll(async () => {
   const uri = await mongoServer.getUri();
   await mongoose.connect(uri, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   });
 });
 
@@ -35,7 +35,7 @@ it("`convertMissingCards(missingCards)` - should convert any given missing cards
   const convertedMissingCardsWithout_id = JSON.parse(
     JSON.stringify(convertedMissingCards)
   );
-  convertedMissingCardsWithout_id.forEach(convertedMissingCard => {
+  convertedMissingCardsWithout_id.forEach((convertedMissingCard) => {
     delete convertedMissingCard._id;
   });
 

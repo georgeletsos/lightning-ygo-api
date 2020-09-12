@@ -16,7 +16,7 @@ it("`spliceQuestionMarkCards(cards, sortField, sortOrder)` - should splice cards
       { id: 1, level: 3 },
       { id: 2, level: 6 },
       { id: 3, level: "?" },
-      { id: 4, level: "?" }
+      { id: 4, level: "?" },
     ],
     sortField,
     "asc"
@@ -25,7 +25,7 @@ it("`spliceQuestionMarkCards(cards, sortField, sortOrder)` - should splice cards
     { id: 3, level: "?" },
     { id: 4, level: "?" },
     { id: 1, level: 3 },
-    { id: 2, level: 6 }
+    { id: 2, level: 6 },
   ]);
 
   const cardsDesc = utilities.spliceQuestionMarkCards(
@@ -33,7 +33,7 @@ it("`spliceQuestionMarkCards(cards, sortField, sortOrder)` - should splice cards
       { id: 3, level: "?" },
       { id: 4, level: "?" },
       { id: 2, level: 6 },
-      { id: 1, level: 3 }
+      { id: 1, level: 3 },
     ],
     sortField,
     "desc"
@@ -43,6 +43,6 @@ it("`spliceQuestionMarkCards(cards, sortField, sortOrder)` - should splice cards
     { id: 2, level: 6 },
     { id: 1, level: 3 },
     { id: 3, level: "?" },
-    { id: 4, level: "?" }
+    { id: 4, level: "?" },
   ]);
 });
