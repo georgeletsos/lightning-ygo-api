@@ -11,7 +11,7 @@ const isProduction = process.env.NODE_ENV === "production";
 mongoose
   .connect(MONGODB_URI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(() => {
     console.log("Successfully connected to MongoDB");
@@ -21,7 +21,7 @@ mongoose
 
     // Update the database with any new API data once per day
     const updateDb = () => {
-      database.updateDb().catch(error => console.log(error));
+      database.updateDb().catch((error) => console.log(error));
     };
     updateDb();
     setInterval(updateDb, aDayInMilliSeconds);

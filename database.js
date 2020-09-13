@@ -25,7 +25,7 @@ const uploadImage = async (imageUrl, folder) => {
     folder: uploadPath,
     use_filename: true,
     unique_filename: false,
-    overwrite: false
+    overwrite: false,
   });
 
   return uploadResponse.secure_url;
@@ -53,16 +53,16 @@ const fetchMissingCards = async () => {
     .get(
       "https://www.duellinksmeta.com/data-hashed/exclusiveCards-7060b5a2b3.json"
     )
-    .catch(error => {
+    .catch((error) => {
       throw new Error(`DLM Exclusive Cards ${error}`);
     });
   const dlmExclusiveCards = dlmExclusiveCardsResponse.data.map(
-    dlmExclusiveCard => {
+    (dlmExclusiveCard) => {
       dlmExclusiveCard.image = {
         id: 0,
         big: CARD_BACK_WARNING_URL,
         small: CARD_BACK_WARNING_URL,
-        art: CARD_BACK_WARNING_URL
+        art: CARD_BACK_WARNING_URL,
       };
       return dlmExclusiveCard;
     }
@@ -71,14 +71,14 @@ const fetchMissingCards = async () => {
   // DLM All Cards
   const dlmAllCardsResponse = await axios
     .get("https://www.duellinksmeta.com/data-hashed/cardObtain-e06a1a69ee.json")
-    .catch(error => {
+    .catch((error) => {
       throw new Error(`DLM All Cards ${error}`);
     });
   const dlmAllCards = dlmAllCardsResponse.data
     // Populate with data the Cards that were also found in the previous list of DLM Exclusive Cards
-    .map(dlmAllCard => {
+    .map((dlmAllCard) => {
       const foundInDlmExclusiveCard = dlmExclusiveCards.find(
-        dlmExclusiveCard => dlmExclusiveCard.name === dlmAllCard.name
+        (dlmExclusiveCard) => dlmExclusiveCard.name === dlmAllCard.name
       );
       return foundInDlmExclusiveCard ? foundInDlmExclusiveCard : dlmAllCard;
     });
@@ -86,15 +86,15 @@ const fetchMissingCards = async () => {
   // Cards that exist in DLM All Cards, but don't exist in ygopro Duel Links Cards
   const dlmAndYgoproDuelLinksDiffCards = dlmAllCards
     .filter(
-      dlmAllCard =>
+      (dlmAllCard) =>
         !ygoproDuelLinksCards.some(
-          ygoproDuelLinksCard => ygoproDuelLinksCard.name === dlmAllCard.name
+          (ygoproDuelLinksCard) => ygoproDuelLinksCard.name === dlmAllCard.name
         )
     )
     // Populate with data the diff Cards that were also found in the ygopro All Cards
-    .map(dlmAndYgoproDuelLinksDiffCard => {
+    .map((dlmAndYgoproDuelLinksDiffCard) => {
       const foundInYgoproCard = ygoproAllCards.find(
-        ygoproAllCard =>
+        (ygoproAllCard) =>
           ygoproAllCard.name === dlmAndYgoproDuelLinksDiffCard.name
       );
       return foundInYgoproCard
@@ -103,7 +103,7 @@ const fetchMissingCards = async () => {
     })
     // Remove any Cards without data, i.e. any DLM Cards that still have a "rarity" property
     .filter(
-      dlmAndYgoproDuelLinksDiffCard =>
+      (dlmAndYgoproDuelLinksDiffCard) =>
         // eslint-disable-next-line
         !dlmAndYgoproDuelLinksDiffCard.hasOwnProperty("rarity")
     );
@@ -116,7 +116,7 @@ const fetchMissingCards = async () => {
 
   // API Cards that are missing from the database
   const missingCards = apiCards.filter(
-    apiCard => !dbCards.some(dbCard => dbCard.name === apiCard.name)
+    (apiCard) => !dbCards.some((dbCard) => dbCard.name === apiCard.name)
   );
 
   return missingCards;
@@ -127,14 +127,14 @@ const fetchMissingCards = async () => {
  * @param {Array} missingCards An array of missing cards.
  * @returns {Array} An array of converted cards.
  */
-const convertMissingCards = async missingCards => {
+const convertMissingCards = async (missingCards) => {
   let convertedCards = [];
 
   for (const apiCard of missingCards) {
     const apiCardTypes = apiCard.type
       .split(" ")
-      .map(type => type.trim().toLowerCase())
-      .filter(type => type !== "card");
+      .map((type) => type.trim().toLowerCase())
+      .filter((type) => type !== "card");
 
     // Types
     let cardType = null;
@@ -170,7 +170,7 @@ const convertMissingCards = async missingCards => {
     // In case of a possible Effect Monster Card Types, add the Effect type to the end
     const possibleEffectMonsterCardTypes = ["fusion", "synchro"];
     if (
-      possibleEffectMonsterCardTypes.some(possibleEffectMonsterCardType =>
+      possibleEffectMonsterCardTypes.some((possibleEffectMonsterCardType) =>
         types.includes(possibleEffectMonsterCardType)
       ) &&
       !ygoLists.nonEffectFusionMonsters
@@ -184,7 +184,7 @@ const convertMissingCards = async missingCards => {
     // In case of Effect Monsters with an Ability, add the Effect type to the end
     const abilities = ["flip", "gemini", "spirit", "toon", "union"];
     if (
-      abilities.some(ability => types.includes(ability)) &&
+      abilities.some((ability) => types.includes(ability)) &&
       !types.includes("effect")
     ) {
       types.push("effect");
@@ -217,7 +217,7 @@ const convertMissingCards = async missingCards => {
         art: await uploadImage(
           apiCardImage.image_url.replace(/pics/gi, "pics_artgame"),
           "art"
-        )
+        ),
       };
       // eslint-disable-next-line
     } else if (apiCard.hasOwnProperty("image")) {
@@ -259,7 +259,7 @@ const convertMissingCards = async missingCards => {
       text: apiCard.desc,
       atk,
       def,
-      image
+      image,
     });
 
     convertedCards.push(convertedCard);
@@ -282,12 +282,12 @@ const updateDb = async () => {
   const convertedCards = await convertMissingCards(missingCards);
 
   Card.insertMany(convertedCards)
-    .then(convertedCards => {
+    .then((convertedCards) => {
       console.log(
         `${convertedCards.length} missing cards were added to the database successfully`
       );
     })
-    .catch(error => {
+    .catch((error) => {
       throw new Error(`Insert Many Converted Cards ${error}`);
     });
 };

@@ -12,7 +12,7 @@ const app = express();
 app.use(
   cors({
     origin: ["http://localhost:8080", "https://lightning-ygo.herokuapp.com"],
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   })
 );
 
@@ -42,8 +42,8 @@ if (!isProduction && !isTest) {
     res.json({
       error: {
         message: err.message,
-        stack: err.stack
-      }
+        stack: err.stack,
+      },
     });
   });
 }
@@ -54,8 +54,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json({
     error: {
-      message: err.message
-    }
+      message: err.message,
+    },
   });
 });
 

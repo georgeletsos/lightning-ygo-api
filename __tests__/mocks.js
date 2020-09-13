@@ -16,8 +16,8 @@ const mockMissingCards = [
         set_name: "Crimson Crisis",
         set_code: "CRMS-EN039",
         set_rarity: "Rare",
-        set_price: "$1.81"
-      }
+        set_price: "$1.81",
+      },
     ],
     card_images: [
       {
@@ -25,8 +25,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/652362.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/652362.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/652362.jpg",
+      },
     ],
     card_prices: [
       {
@@ -34,9 +34,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.90",
         coolstuffinc_price: "0.49",
         ebay_price: "2.00",
-        amazon_price: "0.79"
-      }
-    ]
+        amazon_price: "0.79",
+      },
+    ],
   },
   {
     id: 62437709,
@@ -55,8 +55,8 @@ const mockMissingCards = [
         set_name: "Power of the Duelist",
         set_code: "POTD-EN024",
         set_rarity: "Common",
-        set_price: "$1"
-      }
+        set_price: "$1",
+      },
     ],
     card_images: [
       {
@@ -64,8 +64,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/62437709.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/62437709.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/62437709.jpg",
+      },
     ],
     card_prices: [
       {
@@ -73,9 +73,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.20",
         coolstuffinc_price: "0.49",
         ebay_price: "1.49",
-        amazon_price: "0.25"
-      }
-    ]
+        amazon_price: "0.25",
+      },
+    ],
   },
   {
     id: 19204398,
@@ -94,14 +94,14 @@ const mockMissingCards = [
         set_name: "Duel Terminal 1",
         set_code: "DT01-EN090",
         set_rarity: "Duel Terminal Ultra Parallel Rare",
-        set_price: "$4.11"
+        set_price: "$4.11",
       },
       {
         set_name: "The Shining Darkness",
         set_code: "TSHD-EN096",
         set_rarity: "Super Rare",
-        set_price: "$1.16"
-      }
+        set_price: "$1.16",
+      },
     ],
     card_images: [
       {
@@ -109,8 +109,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/19204398.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/19204398.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/19204398.jpg",
+      },
     ],
     card_prices: [
       {
@@ -118,9 +118,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.14",
         coolstuffinc_price: "0.25",
         ebay_price: "6.00",
-        amazon_price: "0.61"
-      }
-    ]
+        amazon_price: "0.61",
+      },
+    ],
   },
   {
     id: 32181268,
@@ -138,14 +138,14 @@ const mockMissingCards = [
         set_name: "2018 Mega-Tin Mega Pack",
         set_code: "MP18-EN125",
         set_rarity: "Common",
-        set_price: "$1.17"
+        set_price: "$1.17",
       },
       {
         set_name: "Circuit Break",
         set_code: "CIBR-EN036",
         set_rarity: "Common",
-        set_price: "$1.02"
-      }
+        set_price: "$1.02",
+      },
     ],
     card_images: [
       {
@@ -153,8 +153,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/32181268.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/32181268.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/32181268.jpg",
+      },
     ],
     card_prices: [
       {
@@ -162,9 +162,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.21",
         coolstuffinc_price: "0.49",
         ebay_price: "1.00",
-        amazon_price: "4.26"
-      }
-    ]
+        amazon_price: "4.26",
+      },
+    ],
   },
   {
     id: 75380687,
@@ -184,22 +184,22 @@ const mockMissingCards = [
         set_code: "DRLG-EN003",
         set_rarity: "Secret Rare",
         set_rarity_code: "(ScR)",
-        set_price: "18.3"
+        set_price: "18.3",
       },
       {
         set_name: "Dragons of Legend: Unleashed",
         set_code: "DRL3-EN043",
         set_rarity: "Ultra Rare",
         set_rarity_code: "(UR)",
-        set_price: "3.63"
+        set_price: "3.63",
       },
       {
         set_name: "Legendary Dragon Decks",
         set_code: "LEDD-ENA35",
         set_rarity: "Common",
         set_rarity_code: "(C)",
-        set_price: "1.64"
-      }
+        set_price: "1.64",
+      },
     ],
     card_images: [
       {
@@ -207,8 +207,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/75380687.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/75380687.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/75380687.jpg",
+      },
     ],
     card_prices: [
       {
@@ -216,9 +216,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.57",
         ebay_price: "1.19",
         amazon_price: "2.05",
-        coolstuffinc_price: "0.39"
-      }
-    ]
+        coolstuffinc_price: "0.39",
+      },
+    ],
   },
   {
     id: 39303359,
@@ -237,50 +237,50 @@ const mockMissingCards = [
         set_name: "Battle Pack 2: War of the Giants",
         set_code: "BP02-EN056",
         set_rarity: "Common",
-        set_price: "$1.19"
+        set_price: "$1.19",
       },
       {
         set_name: "Battle Pack 2: War of the Giants",
         set_code: "BP02-EN056",
         set_rarity: "Mosaic Rare",
-        set_price: "$1.15"
+        set_price: "$1.15",
       },
       {
         set_name: "Battle Pack 3: Monster League",
         set_code: "BP03-EN033",
         set_rarity: "Rare",
-        set_price: "$1.08"
+        set_price: "$1.08",
       },
       {
         set_name: "Battle Pack 3: Monster League",
         set_code: "BP03-EN033",
         set_rarity: "Shatterfoil Rare",
-        set_price: "$1.1"
+        set_price: "$1.1",
       },
       {
         set_name: "Battle Pack: Epic Dawn",
         set_code: "BP01-EN146",
         set_rarity: "Common",
-        set_price: "$1.15"
+        set_price: "$1.15",
       },
       {
         set_name: "Battle Pack: Epic Dawn",
         set_code: "BP01-EN146",
         set_rarity: "Starfoil Rare",
-        set_price: "$1.22"
+        set_price: "$1.22",
       },
       {
         set_name: "Gladiator's Assault",
         set_code: "GLAS-EN029",
         set_rarity: "Common",
-        set_price: "$1.11"
+        set_price: "$1.11",
       },
       {
         set_name: "Machine Reactor Structure Deck",
         set_code: "SR03-EN009",
         set_rarity: "Common",
-        set_price: "$1.11"
-      }
+        set_price: "$1.11",
+      },
     ],
     card_images: [
       {
@@ -288,8 +288,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/39303359.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/39303359.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/39303359.jpg",
+      },
     ],
     card_prices: [
       {
@@ -297,9 +297,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.18",
         coolstuffinc_price: "0.39",
         ebay_price: "4.79",
-        amazon_price: "0.39"
-      }
-    ]
+        amazon_price: "0.39",
+      },
+    ],
   },
   {
     id: 87979586,
@@ -318,14 +318,14 @@ const mockMissingCards = [
         set_name: "2017 Mega-Tin Mega Pack",
         set_code: "MP17-EN001",
         set_rarity: "Common",
-        set_price: "$1.13"
+        set_price: "$1.13",
       },
       {
         set_name: "Shining Victories",
         set_code: "SHVI-EN001",
         set_rarity: "Short Print",
-        set_price: "$1.1"
-      }
+        set_price: "$1.1",
+      },
     ],
     card_images: [
       {
@@ -333,8 +333,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/87979586.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/87979586.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/87979586.jpg",
+      },
     ],
     card_prices: [
       {
@@ -342,9 +342,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.19",
         coolstuffinc_price: "0.49",
         ebay_price: "1.10",
-        amazon_price: "0.95"
-      }
-    ]
+        amazon_price: "0.95",
+      },
+    ],
   },
   {
     id: 87798440,
@@ -362,8 +362,8 @@ const mockMissingCards = [
         set_name: "Duelist Pack: Jaden Yuki 3",
         set_code: "DP06-EN009",
         set_rarity: "Rare",
-        set_price: "$1.05"
-      }
+        set_price: "$1.05",
+      },
     ],
     card_images: [
       {
@@ -371,8 +371,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/87798440.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/87798440.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/87798440.jpg",
+      },
     ],
     card_prices: [
       {
@@ -380,9 +380,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.22",
         coolstuffinc_price: "0.25",
         ebay_price: "0.99",
-        amazon_price: "0.49"
-      }
-    ]
+        amazon_price: "0.49",
+      },
+    ],
   },
   {
     id: 6840573,
@@ -399,8 +399,8 @@ const mockMissingCards = [
         set_name: "Astral Pack Two",
         set_code: "AP02-EN018",
         set_rarity: "Short Print",
-        set_price: "$5.57"
-      }
+        set_price: "$5.57",
+      },
     ],
     card_images: [
       {
@@ -408,8 +408,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/6840573.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/6840573.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/6840573.jpg",
+      },
     ],
     card_prices: [
       {
@@ -417,9 +417,9 @@ const mockMissingCards = [
         tcgplayer_price: "1.69",
         coolstuffinc_price: "2.99",
         ebay_price: "6.75",
-        amazon_price: "6.79"
-      }
-    ]
+        amazon_price: "6.79",
+      },
+    ],
   },
   {
     id: 41426869,
@@ -434,86 +434,86 @@ const mockMissingCards = [
         set_name: "Dark Beginning 2",
         set_code: "DB2-EN250",
         set_rarity: "Common",
-        set_price: "$1.35"
+        set_price: "$1.35",
       },
       {
         set_name: "Dark Legends",
         set_code: "DLG1-EN061",
         set_rarity: "Common",
-        set_price: "$1.63"
+        set_price: "$1.63",
       },
       {
         set_name: "Legendary Collection 3: Yugi's World Mega Pack",
         set_code: "LCYW-EN114",
         set_rarity: "Rare",
-        set_price: "$1.42"
+        set_price: "$1.42",
       },
       {
         set_name: "Legendary Duelists: Ancient Millennium",
         set_code: "LED2-EN006",
         set_rarity: "Common",
-        set_price: "$1.82"
+        set_price: "$1.82",
       },
       {
         set_name: "Magic Ruler",
         set_code: "MRL-051",
         set_rarity: "Super Rare",
-        set_price: "$4.46"
+        set_price: "$4.46",
       },
       {
         set_name: "Millennium Pack",
         set_code: "MIL1-EN020",
         set_rarity: "Common",
-        set_price: "$1.18"
+        set_price: "$1.18",
       },
       {
         set_name: "Retro Pack",
         set_code: "RP01-EN060",
         set_rarity: "Common",
-        set_price: "$3.29"
+        set_price: "$3.29",
       },
       {
         set_name: "Speed Duel Starter Decks: Destiny Masters",
         set_code: "SS01-ENC09",
         set_rarity: "Common",
-        set_price: "$1.11"
+        set_price: "$1.11",
       },
       {
         set_name: "Speed Duel Starter Decks: Match of the Millennium",
         set_code: "SS04-ENB18",
         set_rarity: "Common",
-        set_price: "$0"
+        set_price: "$0",
       },
       {
         set_name: "Speed Duel Tournament Pack 1",
         set_code: "STP1-EN011",
         set_rarity: "Super Rare",
-        set_price: "$2.64"
+        set_price: "$2.64",
       },
       {
         set_name: "Spell Ruler",
         set_code: "MRL-E051",
         set_rarity: "Super Rare",
-        set_price: "$4.19"
+        set_price: "$4.19",
       },
       {
         set_name: "Spell Ruler",
         set_code: "SRL-051",
         set_rarity: "Super Rare",
-        set_price: "$6"
+        set_price: "$6",
       },
       {
         set_name: "Spell Ruler",
         set_code: "SRL-EN051",
         set_rarity: "Super Rare",
-        set_price: "$0.00"
+        set_price: "$0.00",
       },
       {
         set_name: "Starter Deck: Pegasus",
         set_code: "SDP-038",
         set_rarity: "Common",
-        set_price: "$1.21"
-      }
+        set_price: "$1.21",
+      },
     ],
     card_images: [
       {
@@ -521,8 +521,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/41426869.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/41426869.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/41426869.jpg",
+      },
     ],
     card_prices: [
       {
@@ -530,9 +530,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.23",
         coolstuffinc_price: "0.25",
         ebay_price: "1.99",
-        amazon_price: "4.50"
-      }
-    ]
+        amazon_price: "4.50",
+      },
+    ],
   },
   {
     id: 67284108,
@@ -550,8 +550,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/67284108.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/67284108.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/67284108.jpg",
+      },
     ],
     card_prices: [
       {
@@ -559,9 +559,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.00",
         coolstuffinc_price: "0.00",
         ebay_price: "0.00",
-        amazon_price: "0.78"
-      }
-    ]
+        amazon_price: "0.78",
+      },
+    ],
   },
   {
     id: 53183600,
@@ -580,62 +580,62 @@ const mockMissingCards = [
         set_name: "Dark Beginning 1",
         set_code: "DB1-EN066",
         set_rarity: "Super Rare",
-        set_price: "$15.15"
+        set_price: "$15.15",
       },
       {
         set_name: "Dark Legends",
         set_code: "DLG1-EN051",
         set_rarity: "Common",
-        set_price: "$4.27"
+        set_price: "$4.27",
       },
       {
         set_name: "Duelist Pack: Battle City",
         set_code: "DPBC-EN043",
         set_rarity: "Common",
-        set_price: "$3.59"
+        set_price: "$3.59",
       },
       {
         set_name: "Legendary Collection 3: Yugi's World Mega Pack",
         set_code: "LCYW-EN103",
         set_rarity: "Rare",
-        set_price: "$4.93"
+        set_price: "$4.93",
       },
       {
         set_name: "Magic Ruler",
         set_code: "MRL-000",
         set_rarity: "Secret Rare",
-        set_price: "$88.95"
+        set_price: "$88.95",
       },
       {
         set_name: "Retro Pack",
         set_code: "RP01-EN050",
         set_rarity: "Rare",
-        set_price: "$9.34"
+        set_price: "$9.34",
       },
       {
         set_name: "Spell Ruler",
         set_code: "MRL-E000",
         set_rarity: "Secret Rare",
-        set_price: "$89.07"
+        set_price: "$89.07",
       },
       {
         set_name: "Spell Ruler",
         set_code: "SRL-000",
         set_rarity: "Secret Rare",
-        set_price: "$53.69"
+        set_price: "$53.69",
       },
       {
         set_name: "Spell Ruler",
         set_code: "SRL-EN000",
         set_rarity: "Secret Rare",
-        set_price: "$52.06"
+        set_price: "$52.06",
       },
       {
         set_name: "Starter Deck: Pegasus",
         set_code: "SDP-020",
         set_rarity: "Common",
-        set_price: "$2.78"
-      }
+        set_price: "$2.78",
+      },
     ],
     card_images: [
       {
@@ -643,8 +643,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/53183600.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/53183600.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/53183600.jpg",
+      },
     ],
     card_prices: [
       {
@@ -652,9 +652,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.92",
         coolstuffinc_price: "2.49",
         ebay_price: "47.99",
-        amazon_price: "4.84"
-      }
-    ]
+        amazon_price: "4.84",
+      },
+    ],
   },
   {
     id: 64599569,
@@ -672,68 +672,68 @@ const mockMissingCards = [
         set_name: "Duel Terminal 7a",
         set_code: "DT07-EN032",
         set_rarity: "Duel Terminal Rare Parallel Rare",
-        set_price: "$2.7"
+        set_price: "$2.7",
       },
       {
         set_name: "Duelist Pack: Zane Truesdale",
         set_code: "DP04-EN013",
         set_rarity: "Rare",
-        set_price: "$1.21"
+        set_price: "$1.21",
       },
       {
         set_name: "Gold Series",
         set_code: "GLD1-EN029",
         set_rarity: "Gold Rare",
-        set_price: "$10.99"
+        set_price: "$10.99",
       },
       {
         set_name: "Legendary Collection 2: The Duel Academy Years Mega Pack",
         set_code: "LCGX-EN183",
         set_rarity: "Secret Rare",
-        set_price: "$3.88"
+        set_price: "$3.88",
       },
       {
         set_name: "Legendary Dragon Decks",
         set_code: "LEDD-ENB27",
         set_rarity: "Common",
-        set_price: "$1.22"
+        set_price: "$1.22",
       },
       {
         set_name: "Power of the Duelist",
         set_code: "POTD-EN034",
         set_rarity: "Ultimate Rare",
-        set_price: "$3.89"
+        set_price: "$3.89",
       },
       {
         set_name: "Power of the Duelist",
         set_code: "POTD-EN034",
         set_rarity: "Ultra Rare",
-        set_price: "$3.84"
+        set_price: "$3.84",
       },
       {
         set_name: "Premium Gold",
         set_code: "PGLD-EN056",
         set_rarity: "Gold Rare",
-        set_price: "$3.12"
+        set_price: "$3.12",
       },
       {
         set_name: "Ra Yellow Mega Pack",
         set_code: "RYMP-EN061",
         set_rarity: "Rare",
-        set_price: "$1.24"
+        set_price: "$1.24",
       },
       {
         set_name: "Star Pack 2014",
         set_code: "SP14-EN043",
         set_rarity: "Common",
-        set_price: "$1.28"
+        set_price: "$1.28",
       },
       {
         set_name: "Star Pack 2014",
         set_code: "SP14-EN043",
         set_rarity: "Starfoil Rare",
-        set_price: "$1.55"
-      }
+        set_price: "$1.55",
+      },
     ],
     card_images: [
       {
@@ -741,8 +741,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/64599569.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/64599569.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/64599569.jpg",
+      },
     ],
     card_prices: [
       {
@@ -750,9 +750,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.28",
         coolstuffinc_price: "0.49",
         ebay_price: "30.00",
-        amazon_price: "1.27"
-      }
-    ]
+        amazon_price: "1.27",
+      },
+    ],
   },
   {
     id: 45815891,
@@ -770,14 +770,14 @@ const mockMissingCards = [
         set_name: "Duelist Revolution",
         set_code: "DREV-EN000",
         set_rarity: "Super Rare",
-        set_price: "$1.5"
+        set_price: "$1.5",
       },
       {
         set_name: "Duelist Revolution Sneak Peek Participation Card",
         set_code: "DREV-ENSP1",
         set_rarity: "Ultra Rare",
-        set_price: "$9.33"
-      }
+        set_price: "$9.33",
+      },
     ],
     card_images: [
       {
@@ -785,8 +785,8 @@ const mockMissingCards = [
         image_url:
           "https://storage.googleapis.com/ygoprodeck.com/pics/45815891.jpg",
         image_url_small:
-          "https://storage.googleapis.com/ygoprodeck.com/pics_small/45815891.jpg"
-      }
+          "https://storage.googleapis.com/ygoprodeck.com/pics_small/45815891.jpg",
+      },
     ],
     card_prices: [
       {
@@ -794,9 +794,9 @@ const mockMissingCards = [
         tcgplayer_price: "0.49",
         coolstuffinc_price: "0.00",
         ebay_price: "1.84",
-        amazon_price: "0.84"
-      }
-    ]
+        amazon_price: "0.84",
+      },
+    ],
   },
   {
     name: "Passion of Baimasse",
@@ -811,11 +811,11 @@ const mockMissingCards = [
       small:
         "https://res.cloudinary.com/georgeletsos/image/upload/v1588871867/lightning_ygo_api/card_images/card_back_warning.jpg",
       art:
-        "https://res.cloudinary.com/georgeletsos/image/upload/v1588871867/lightning_ygo_api/card_images/card_back_warning.jpg"
-    }
-  }
+        "https://res.cloudinary.com/georgeletsos/image/upload/v1588871867/lightning_ygo_api/card_images/card_back_warning.jpg",
+    },
+  },
 ];
 
 module.exports = {
-  mockMissingCards
+  mockMissingCards,
 };

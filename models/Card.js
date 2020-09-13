@@ -11,7 +11,7 @@ const CardSchema = new mongoose.Schema(
     text: { type: String, required: true },
     atk: mongoose.Schema.Types.Mixed,
     def: mongoose.Schema.Types.Mixed,
-    image: { type: Map, of: String }
+    image: { type: Map, of: String },
   },
   { timestamps: true }
 );
@@ -27,7 +27,7 @@ CardSchema.methods.toJSONapi = function() {
     text: this.text,
     atk: this.atk,
     def: this.def,
-    image: this.image
+    image: this.image,
   };
 };
 
