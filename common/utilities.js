@@ -1,5 +1,5 @@
 const escapeRegExp = function(str) {
-  return str.replace(/[.*+\-?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
+  return str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 };
 
 const findLastIndex = function(arr, callback) {
@@ -15,7 +15,7 @@ const findLastIndex = function(arr, callback) {
 // From an array of cards, splice those with "?" values based on sort field
 // And place them at the start or end of the array based on sort order
 const spliceQuestionMarkCards = function(cards, sortField, sortOrder) {
-  const hasQuestionMark = (card) => card[sortField] === "?";
+  const hasQuestionMark = card => card[sortField] === '?';
   const firstIndex = cards.findIndex(hasQuestionMark);
   if (firstIndex === -1) {
     return cards;
@@ -25,10 +25,10 @@ const spliceQuestionMarkCards = function(cards, sortField, sortOrder) {
   const questionMarkCards = cards.splice(firstIndex, lastIndex + 1);
 
   switch (sortOrder) {
-    case "asc":
+    case 'asc':
       cards.unshift(...questionMarkCards);
       break;
-    case "desc":
+    case 'desc':
       cards.push(...questionMarkCards);
       break;
   }
@@ -38,5 +38,5 @@ const spliceQuestionMarkCards = function(cards, sortField, sortOrder) {
 
 module.exports = {
   escapeRegExp,
-  spliceQuestionMarkCards,
+  spliceQuestionMarkCards
 };

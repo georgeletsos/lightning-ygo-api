@@ -1,57 +1,57 @@
-const Card = require("../models/Card");
-const router = require("express").Router();
-const utilities = require("../common/utilities");
+const Card = require('../models/Card');
+const router = require('express').Router();
+const utilities = require('../common/utilities');
 
 // Return all cards
-router.get("/all", (req, res, next) => {
+router.get('/all', (req, res, next) => {
   Card.find()
-    .then((cards) => {
-      cards = cards.map((card) => card.toJSONapi());
+    .then(cards => {
+      cards = cards.map(card => card.toJSONapi());
       res.json(cards);
     })
     .catch(next);
 });
 
 // Search by every filter
-router.get("/", function(req, res, next) {
+router.get('/', function(req, res, next) {
   const dbQuery = {};
   const sortQuery = {};
 
   // Card Types
-  if (typeof req.query.cardTypes !== "undefined") {
+  if (typeof req.query.cardTypes !== 'undefined') {
     dbQuery.cardType = { $in: req.query.cardTypes };
   } else {
-    const err = new Error("cardType is missing");
+    const err = new Error('cardType is missing');
     err.status = 400;
     next(err);
   }
 
   // Attributes
-  if (typeof req.query.attributes !== "undefined") {
+  if (typeof req.query.attributes !== 'undefined') {
     dbQuery.attribute = { $in: req.query.attributes };
   }
 
   // Levels
-  if (typeof req.query.levels !== "undefined") {
-    dbQuery.level = { $in: req.query.levels.map((level) => Number(level)) };
+  if (typeof req.query.levels !== 'undefined') {
+    dbQuery.level = { $in: req.query.levels.map(level => Number(level)) };
   }
 
   // Monster Types
-  if (typeof req.query.monsterTypes !== "undefined") {
+  if (typeof req.query.monsterTypes !== 'undefined') {
     dbQuery.monsterType = { $in: req.query.monsterTypes };
   }
 
   // Types
-  if (typeof req.query.types !== "undefined") {
+  if (typeof req.query.types !== 'undefined') {
     const types = { $in: [], $nin: [] };
-    const possibleEffectMonsterCardTypes = ["ritual", "fusion", "synchro"];
+    const possibleEffectMonsterCardTypes = ['ritual', 'fusion', 'synchro'];
 
     // Effect Monsters
-    const effectIndex = req.query.types.indexOf("effect");
+    const effectIndex = req.query.types.indexOf('effect');
     if (effectIndex > -1) {
       req.query.types.splice(effectIndex, 1);
 
-      types.$in.push("effect");
+      types.$in.push('effect');
       types.$nin.push(...possibleEffectMonsterCardTypes);
     }
 
@@ -65,7 +65,7 @@ router.get("/", function(req, res, next) {
 
         types.$in.push(possibleEffectMonsterCardType);
         types.$nin = types.$nin.filter(
-          (type) => type !== possibleEffectMonsterCardType
+          type => type !== possibleEffectMonsterCardType
         );
       }
     }
@@ -86,15 +86,15 @@ router.get("/", function(req, res, next) {
   }
 
   // Card Effects
-  if (typeof req.query.cardEffects !== "undefined") {
+  if (typeof req.query.cardEffects !== 'undefined') {
     const cardEffects = {};
 
     // Non-Effect Monsters
-    const nonEffectIndex = req.query.cardEffects.indexOf("non-effect");
+    const nonEffectIndex = req.query.cardEffects.indexOf('non-effect');
     if (nonEffectIndex > -1) {
       req.query.cardEffects.splice(nonEffectIndex, 1);
 
-      cardEffects.$nin = ["effect"];
+      cardEffects.$nin = ['effect'];
     }
 
     // Monster Abilities & Tuner Monsters (The rest of the remaining Card Effects)
@@ -103,7 +103,7 @@ router.get("/", function(req, res, next) {
     }
 
     // eslint-disable-next-line
-    if (!dbQuery.hasOwnProperty("$and")) {
+    if (!dbQuery.hasOwnProperty('$and')) {
       dbQuery.$and = [];
     }
 
@@ -111,37 +111,37 @@ router.get("/", function(req, res, next) {
   }
 
   // Text
-  if (typeof req.query.text !== "undefined") {
+  if (typeof req.query.text !== 'undefined') {
     const $regex = {
-      $regex: new RegExp(utilities.escapeRegExp(req.query.text), "i"),
+      $regex: new RegExp(utilities.escapeRegExp(req.query.text), 'i')
     };
     dbQuery.$or = [{ name: $regex }, { text: $regex }];
   }
 
   // PRIMARY Sort field & Sort order
   if (
-    typeof req.query.sortField !== "undefined" &&
-    typeof req.query.sortOrder !== "undefined"
+    typeof req.query.sortField !== 'undefined' &&
+    typeof req.query.sortOrder !== 'undefined'
   ) {
     sortQuery[req.query.sortField] = req.query.sortOrder;
   } else {
     // DEFAULT Sort field & Sort order = name & asc
-    sortQuery.name = "asc";
+    sortQuery.name = 'asc';
   }
 
   // SECONDARY Sort field & Sort order
-  if (typeof sortQuery.name === "undefined") {
+  if (typeof sortQuery.name === 'undefined') {
     if (req.query.cardTypes.length > 1) {
-      sortQuery.cardType = "asc";
+      sortQuery.cardType = 'asc';
     }
-    sortQuery.name = "asc";
+    sortQuery.name = 'asc';
   }
 
   // In case of sorting possible null values, 2 queries are needed to ensure that null values are always at the end
   if (
-    ["level", "atk", "def"].includes(req.query.sortField) &&
+    ['level', 'atk', 'def'].includes(req.query.sortField) &&
     req.query.cardTypes.length > 1 &&
-    req.query.cardTypes.includes("monster")
+    req.query.cardTypes.includes('monster')
   ) {
     const noNullCardsQuery = Card.find(dbQuery)
       .where(req.query.sortField)
@@ -164,7 +164,7 @@ router.get("/", function(req, res, next) {
 
         const cards = noNullCards
           .concat(nullCards)
-          .map((card) => card.toJSONapi());
+          .map(card => card.toJSONapi());
         res.json(cards);
       })
       .catch(next);
@@ -174,11 +174,11 @@ router.get("/", function(req, res, next) {
 
   Card.find(dbQuery)
     .sort(sortQuery)
-    .then((cards) => {
+    .then(cards => {
       if (
-        ["level", "atk", "def"].includes(req.query.sortField) &&
+        ['level', 'atk', 'def'].includes(req.query.sortField) &&
         req.query.cardTypes.length === 1 &&
-        req.query.cardTypes.includes("monster")
+        req.query.cardTypes.includes('monster')
       ) {
         // In case of sorting possible "?" values, place them correctly at the start or end
         cards = utilities.spliceQuestionMarkCards(
@@ -188,7 +188,7 @@ router.get("/", function(req, res, next) {
         );
       }
 
-      cards = cards.map((card) => card.toJSONapi());
+      cards = cards.map(card => card.toJSONapi());
       res.json(cards);
     })
     .catch(next);
