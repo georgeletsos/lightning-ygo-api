@@ -1,8 +1,8 @@
-const escapeRegExp = function(str) {
+const escapeRegExp = str => {
   return str.replace(/[.*+\-?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 };
 
-const findLastIndex = function(arr, callback) {
+const findLastIndex = (arr, callback) => {
   for (let i = arr.length - 1; i >= 0; i--) {
     if (callback(arr[i])) {
       return i;
@@ -14,7 +14,7 @@ const findLastIndex = function(arr, callback) {
 
 // From an array of cards, splice those with "?" values based on sort field
 // And place them at the start or end of the array based on sort order
-const spliceQuestionMarkCards = function(cards, sortField, sortOrder) {
+const spliceQuestionMarkCards = (cards, sortField, sortOrder) => {
   const hasQuestionMark = card => card[sortField] === '?';
   const firstIndex = cards.findIndex(hasQuestionMark);
   if (firstIndex === -1) {

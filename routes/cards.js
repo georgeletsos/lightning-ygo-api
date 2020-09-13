@@ -13,7 +13,7 @@ router.get('/all', (req, res, next) => {
 });
 
 // Search by every filter
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   const dbQuery = {};
   const sortQuery = {};
 

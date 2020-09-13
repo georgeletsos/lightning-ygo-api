@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(router);
 
 // Last middleware, creates a 404 error and forwards it to the error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;
 
@@ -34,7 +34,7 @@ app.use(function(req, res, next) {
 // Development error handler => show stacktrace
 if (!isProduction && !isTest) {
   // eslint-disable-next-line
-  app.use(function(err, req, res, next) {
+  app.use((err, req, res, next) => {
     console.log(err.stack);
 
     res.status(err.status || 500);
@@ -50,7 +50,7 @@ if (!isProduction && !isTest) {
 
 // Production error handler => no stacktrace
 // eslint-disable-next-line
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({
     error: {
