@@ -44,7 +44,12 @@ router.get('/', (req, res, next) => {
   // Types
   if (typeof req.query.types !== 'undefined') {
     const types = { $in: [], $nin: [] };
-    const possibleEffectMonsterCardTypes = ['ritual', 'fusion', 'synchro'];
+    const possibleEffectMonsterCardTypes = [
+      'ritual',
+      'fusion',
+      'synchro',
+      'xyz'
+    ];
 
     // Effect Monsters
     const effectIndex = req.query.types.indexOf('effect');
@@ -55,7 +60,7 @@ router.get('/', (req, res, next) => {
       types.$nin.push(...possibleEffectMonsterCardTypes);
     }
 
-    // Ritual, Fusion, Synchro Monsters
+    // Ritual, Fusion, Synchro, Xyz Monsters
     for (const possibleEffectMonsterCardType of possibleEffectMonsterCardTypes) {
       const possibleEffectMonsterCardTypeIndex = req.query.types.indexOf(
         possibleEffectMonsterCardType

@@ -66,6 +66,8 @@ const nonEffectSynchroMonsters = [
   'Scrap Archfiend'
 ];
 
+const nonEffectXyzMonsters = ['Gagagigo the Risen', 'Gem-Knight Pearl'];
+
 const questionMarkAtkMonsters = [
   'Aegaion the Sea Castrum',
   'Apollousa, Bow of the Goddess',
@@ -229,6 +231,7 @@ const questionMarkDefMonsters = [
 module.exports = {
   nonEffectFusionMonsters,
   nonEffectSynchroMonsters,
+  nonEffectXyzMonsters,
   questionMarkAtkMonsters,
   questionMarkDefMonsters
 };

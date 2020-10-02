@@ -51,7 +51,7 @@ const fetchMissingCards = async () => {
   // DLM Exclusive Cards, populate them with the CARD BACK image because they don't exist in ygopro api
   const dlmExclusiveCardsResponse = await axios
     .get(
-      'https://www.duellinksmeta.com/data-hashed/exclusiveCards-7060b5a2b3.json'
+      'https://www.duellinksmeta.com/data-hashed/exclusiveCards-433bbf220b.json'
     )
     .catch(error => {
       throw new Error(`DLM Exclusive Cards ${error}`);
@@ -70,7 +70,7 @@ const fetchMissingCards = async () => {
 
   // DLM All Cards
   const dlmAllCardsResponse = await axios
-    .get('https://www.duellinksmeta.com/data-hashed/cardObtain-e06a1a69ee.json')
+    .get('https://www.duellinksmeta.com/data-hashed/cardObtain-2055dc40ac.json')
     .catch(error => {
       throw new Error(`DLM All Cards ${error}`);
     });
@@ -168,13 +168,14 @@ const convertMissingCards = async missingCards => {
     }
 
     // In case of a possible Effect Monster Card Types, add the Effect type to the end
-    const possibleEffectMonsterCardTypes = ['fusion', 'synchro'];
+    const possibleEffectMonsterCardTypes = ['fusion', 'synchro', 'xyz'];
     if (
       possibleEffectMonsterCardTypes.some(possibleEffectMonsterCardType =>
         types.includes(possibleEffectMonsterCardType)
       ) &&
       !ygoLists.nonEffectFusionMonsters
         .concat(ygoLists.nonEffectSynchroMonsters)
+        .concat(ygoLists.nonEffectXyzMonsters)
         .includes(apiCard.name) &&
       !types.includes('effect')
     ) {
