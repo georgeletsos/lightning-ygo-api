@@ -70,7 +70,7 @@ const fetchMissingCards = async () => {
 
   // DLM All Cards
   const dlmAllCardsResponse = await axios
-    .get('https://www.duellinksmeta.com/data-hashed/cardObtain-c66cbae3ab.json')
+    .get('https://www.duellinksmeta.com/data-hashed/cardObtain-01621293f9.json')
     .catch(error => {
       throw new Error(`DLM All Cards ${error}`);
     });
