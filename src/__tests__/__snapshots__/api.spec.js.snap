@@ -2721,6 +2721,26 @@ Array [
     ],
   },
   Object {
+    "atk": 0,
+    "attribute": "dark",
+    "cardType": "monster",
+    "def": 2400,
+    "image": Object {
+      "art": "https://res.cloudinary.com/georgeletsos/image/upload/v1615141148/lightning_ygo_api/card_images/art/62514770.jpg",
+      "big": "https://res.cloudinary.com/georgeletsos/image/upload/v1615141145/lightning_ygo_api/card_images/big/62514770.jpg",
+      "id": "62514770",
+      "small": "https://res.cloudinary.com/georgeletsos/image/upload/v1615141146/lightning_ygo_api/card_images/small/62514770.jpg",
+    },
+    "level": 6,
+    "monsterType": "dragon",
+    "name": "Labradorite Dragon",
+    "text": "The ancients compared this prized creature to moonlight rippling across water. A bringer of harmony, reminder of past glories, able to soothe the hearts of even the most ambitious men.",
+    "types": Array [
+      "tuner",
+      "normal",
+    ],
+  },
+  Object {
     "atk": 1600,
     "attribute": "earth",
     "cardType": "monster",

@@ -1,0 +1,46 @@
+version: "3.5"
+
+services:
+  lightning-ygo-api:
+    build: .
+    image: lightning-ygo-api
+    container_name: lightning-ygo-api
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "${API_HOST_PORT}:3000"
+    volumes:
+      - type: bind
+        source: ./src
+        target: /home/node/app
+    networks:
+      - default
+    depends_on:
+      - lightning-ygo-mongodb
+
+  lightning-ygo-mongodb:
+    image: mongo:4.4.4
+    container_name: lightning-ygo-mongodb
+    restart: always
+    tty: true
+    ports:
+      - "${MONGODB_HOST_PORT}:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGODB_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGODB_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGODB_DATABASE}
+    # Windows caveat about volume: https://hub.docker.com/_/mongo
+    volumes:
+      - type: volume
+        source: mongodb-data
+        target: /data/db
+    networks:
+      - default
+
+volumes:
+  mongodb-data:
+    name: lightning-ygo-mongodb-data
+
+networks:
+  default:
+    name: lightning-ygo

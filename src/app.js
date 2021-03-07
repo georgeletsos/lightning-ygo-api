@@ -2,9 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const router = require('./routes/router');
 
-const isProduction = process.env.NODE_ENV === 'production';
-const isTest = process.env.NODE_ENV === 'test';
-
 // Global app object
 const app = express();
 
@@ -32,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 // Development error handler => show stacktrace
-if (!isProduction && !isTest) {
+if (!['production', 'test'].includes(process.env.NODE_ENV)) {
   // eslint-disable-next-line
   app.use((err, req, res, next) => {
     console.log(err.stack);

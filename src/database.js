@@ -7,11 +7,6 @@ const UPLOAD_PATH = '/lightning_ygo_api/card_images';
 const CARD_BACK_WARNING_URL =
   'https://res.cloudinary.com/georgeletsos/image/upload/v1588871867/lightning_ygo_api/card_images/card_back_warning.jpg';
 
-// Set Cloudinary config
-if (typeof process.env.CLOUDINARY_URL === 'undefined') {
-  cloudinary.config(require('./config/cloudinary'));
-}
-
 /**
  * Upload Image to Cloudinary.
  * @param {String} imageUrl Remote image url.
@@ -38,21 +33,19 @@ const uploadImage = async (imageUrl, folder) => {
 const fetchMissingCards = async () => {
   // ygopro Duel Links Cards
   const ygoproDuelLinksCardsResponse = await axios.get(
-    'https://db.ygoprodeck.com/api/v6/cardinfo.php?format=Duel Links'
+    'https://db.ygoprodeck.com/api/v7/cardinfo.php?format=Duel Links'
   );
-  const ygoproDuelLinksCards = ygoproDuelLinksCardsResponse.data;
+  const ygoproDuelLinksCards = ygoproDuelLinksCardsResponse.data.data;
 
   // ygopro All Cards
   const ygoproAllCardsResponse = await axios.get(
-    'https://db.ygoprodeck.com/api/v6/cardinfo.php'
+    'https://db.ygoprodeck.com/api/v7/cardinfo.php'
   );
-  const ygoproAllCards = ygoproAllCardsResponse.data;
+  const ygoproAllCards = ygoproAllCardsResponse.data.data;
 
   // DLM Exclusive Cards, populate them with the CARD BACK image because they don't exist in ygopro api
   const dlmExclusiveCardsResponse = await axios
-    .get(
-      'https://www.duellinksmeta.com/data-hashed/exclusiveCards-e390c33eb6.json'
-    )
+    .get('https://www.duellinksmeta.com/data/exclusiveCards.json')
     .catch(error => {
       throw new Error(`DLM Exclusive Cards ${error}`);
     });
@@ -70,7 +63,7 @@ const fetchMissingCards = async () => {
 
   // DLM All Cards
   const dlmAllCardsResponse = await axios
-    .get('https://www.duellinksmeta.com/data-hashed/cardObtain-01621293f9.json')
+    .get('https://www.duellinksmeta.com/data/cardObtain.json')
     .catch(error => {
       throw new Error(`DLM All Cards ${error}`);
     });

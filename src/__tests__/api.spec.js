@@ -1,12 +1,11 @@
+require('dotenv').config();
+
 const app = require('../app');
 const mongoose = require('mongoose');
 const request = require('supertest');
 
-const MONGODB_URI =
-  process.env.MONGODB_URI || 'mongodb://localhost:27017/lightning-ygo-api';
-
 beforeAll(() => {
-  mongoose.connect(MONGODB_URI, {
+  mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   });

@@ -1,15 +1,12 @@
+require('dotenv').config();
+
 const mongoose = require('mongoose');
 const database = require('./database');
 const app = require('./app');
 
-const MONGODB_URI =
-  process.env.MONGODB_URI || 'mongodb://localhost:27017/lightning-ygo-api';
-const PORT = process.env.PORT || 3000;
-const isProduction = process.env.NODE_ENV === 'production';
-
 // Connect to MongoDB
 mongoose
-  .connect(MONGODB_URI, {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
@@ -26,9 +23,9 @@ mongoose
     updateDb();
     setInterval(updateDb, aDayInMilliSeconds);
   });
-mongoose.set('debug', !isProduction);
+mongoose.set('debug', process.env.NODE_ENV !== 'production');
 
 // Start the server
-const server = app.listen(PORT, () =>
+const server = app.listen(process.env.PORT, () =>
   console.log(`Server listening on port ${server.address().port}`)
 );
