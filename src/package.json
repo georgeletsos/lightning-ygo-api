@@ -2,10 +2,10 @@
   "name": "lightning-ygo-api",
   "version": "1.0.0",
   "description": "Ygo API built with Node.js, Express and Mongoose",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
     "start": "node ./server.js",
-    "dev": "nodemon ./server.js",
+    "dev": "nodemon -L ./server.js",
     "test": "jest",
     "prettify": "npx prettier --write **/**"
   },
